@@ -46,7 +46,7 @@
                 <i class="fa fa-cog fa-2x"> </i>
             </a>
             <ul class="dropdown-menu">
-                <li class="header-title"> Oldalsáv színe</li>
+                <li class="header-title"> Oldalsáv gombok színe</li>
                 <li class="adjustments-line">
                     <a href="javascript:void(0)" class="switch-trigger active-color">
                         <div class="badge-colors ml-auto mr-auto">
