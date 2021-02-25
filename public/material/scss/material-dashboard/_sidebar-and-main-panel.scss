@@ -67,7 +67,7 @@
                     margin: 0;
                     position: relative;
                     transform: translateX(0px);
-                    opacity: 1;
+                    opacity: 50;
                     white-space: nowrap;
                     display: block;
 
@@ -482,7 +482,7 @@
 
     .sidebar {
       .nav .nav-item {
-        &.active-pro {
+        &.github-button {
           position: absolute;
           width: 100%;
           bottom: 13px;

@@ -14709,7 +14709,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 .sidebar .logo .simple-text {
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   padding: 5px 0px;
   display: inline-block;
   font-size: 18px;
@@ -14994,7 +14994,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
     transform: translate3d(0px, 0, 0);
     opacity: 1;
   }
-  .sidebar .nav .nav-item.active-pro {
+  .sidebar .nav .nav-item.github-button {
     position: absolute;
     width: 100%;
     bottom: 13px;

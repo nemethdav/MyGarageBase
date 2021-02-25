@@ -1,9 +1,11 @@
-@extends('layouts.app', ['activePage' => 'dashboard', 'titlePage' => __('Dashboard')])
+@extends('layouts.app', ['activePage' => 'dashboard', 'titlePage' => __('MyGarageBase - Főképernyő')])
 
 @section('content')
   <div class="content">
     <div class="container-fluid">
+{{--        1. sor eleje--}}
       <div class="row">
+{{--          Kártya eleje--}}
         <div class="col-lg-3 col-md-6 col-sm-6">
           <div class="card card-stats">
             <div class="card-header card-header-warning card-header-icon">
@@ -23,6 +25,7 @@
             </div>
           </div>
         </div>
+{{--          Kártya vége--}}
         <div class="col-lg-3 col-md-6 col-sm-6">
           <div class="card card-stats">
             <div class="card-header card-header-success card-header-icon">
@@ -72,6 +75,8 @@
           </div>
         </div>
       </div>
+{{--        1.sor vége--}}
+{{--        2.sor eleje--}}
       <div class="row">
         <div class="col-md-4">
           <div class="card card-chart">
@@ -123,6 +128,7 @@
           </div>
         </div>
       </div>
+{{--        3.sor eleje--}}
       <div class="row">
         <div class="col-lg-6 col-md-12">
           <div class="card">
@@ -369,6 +375,7 @@
             </div>
           </div>
         </div>
+{{--3. sor második oszlop eleje--}}
         <div class="col-lg-6 col-md-12">
           <div class="card">
             <div class="card-header card-header-warning">
@@ -413,7 +420,9 @@
             </div>
           </div>
         </div>
+{{--          3.sor második oszlop vége--}}
       </div>
+{{--        3. sor vége--}}
     </div>
   </div>
 @endsection
