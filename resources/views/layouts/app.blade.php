@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}@yield('title')</title>
+    <title>{{ config('app.name', 'Laravel') }} - {{ $titlePage }}</title>
 
 {{--    <link rel="apple-touch-icon-precomposed" type="image/png" sizes="76x76"--}}
 {{--          href="{{ asset('material') }}/img/apple-icon.png">--}}

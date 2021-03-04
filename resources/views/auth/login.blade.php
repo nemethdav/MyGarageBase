@@ -1,4 +1,4 @@
-@extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => 'login', 'title' => __('Bejelentkezés')])
+@extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => 'login', 'titlePage' => __('Bejelentkezés')])
 
 @section('content')
 <div class="container" style="height: auto;">

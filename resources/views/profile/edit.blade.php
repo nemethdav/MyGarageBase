@@ -1,7 +1,5 @@
 @extends('layouts.app', ['activePage' => 'profile', 'titlePage' => __('Felhasználói profil')])
 
-@section('title', ' - Felhasználói profil')
-
 @section('content')
   <div class="content">
     <div class="container-fluid">
