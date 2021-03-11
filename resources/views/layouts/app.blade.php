@@ -118,8 +118,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
 <!-- Library for adding dinamically elements -->
 <script src="{{ asset('material') }}/js/plugins/arrive.min.js"></script>
-<!--  Google Maps Plugin    -->
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE'"></script>
 <!-- Chartist JS -->
 <script src="{{ asset('material') }}/js/plugins/chartist.min.js"></script>
 <!--  Notifications Plugin    -->
@@ -130,5 +128,6 @@
 <script src="{{ asset('material') }}/demo/demo.js"></script>
 <script src="{{ asset('material') }}/js/settings.js"></script>
 @stack('js')
+
 </body>
 </html>

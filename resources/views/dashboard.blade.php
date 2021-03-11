@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'dashboard', 'titlePage' => __('MyGarageBase - Főképernyő')])
+@extends('layouts.app', ['activePage' => 'dashboard', 'titlePage' => __('Főképernyő')])
 
 @section('content')
   <div class="content">

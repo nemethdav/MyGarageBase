@@ -22,8 +22,9 @@
 {{--      </form>--}}
       <ul class="navbar-nav">
         <li class="nav-item dropdown">
-          <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="material-icons">person</i> {{ \Illuminate\Support\Facades\Auth::user()->name }}
+          <a class="nav-link" href="#" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="storage/imgs/avatars/{{ auth()->user()->avatar == '' ? 'avatar.jpg' : auth()->user()->avatar }}" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;">
+              <span class="align-middle">{{ \Illuminate\Support\Facades\Auth::user()->name }} </span>
               <p class="d-lg-none d-md-block">
               {{ __('Felhasználó') }}
             </p>

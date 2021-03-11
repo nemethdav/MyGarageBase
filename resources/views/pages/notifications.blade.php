@@ -11,6 +11,7 @@
           <a href="http://bootstrap-notify.remabledesigns.com/" target="_blank">full documentation.</a>
         </p>
       </div>
+{{--        Felső rész eleje--}}
       <div class="card-body">
         <div class="row">
           <div class="col-md-6">
@@ -79,6 +80,8 @@
           </div>
         </div>
       </div>
+{{--        Felső rész vége--}}
+{{--        Lebegő értesítések gombok eleje--}}
       <div class="col-md-12">
         <div class="places-buttons">
           <div class="row">

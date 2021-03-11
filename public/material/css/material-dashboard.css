@@ -16901,8 +16901,8 @@ label {
 }
 
 .card .author .avatar {
-  width: 30px;
-  height: 30px;
+  /*width: 150px;*/
+  height: 150px;
   overflow: hidden;
   border-radius: 50%;
   margin-right: 5px;
