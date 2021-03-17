@@ -45,18 +45,21 @@ class ProfileController extends Controller
         return back()->withStatusPassword(__('Sikeres jelszómodosítás!'));
     }
 
-    function avatar(Request $request){
+    function avatar(Request $request)
+    {
         $dest = 'storage/imgs/avatars/'; //Where user images will be stored
 
-        if ($file = $request->file('changeAvatar') != null){
+        if (($file = $request->file('changeAvatar')) != null) {
             $new_image_name = 'avatar' . uniqid() . '.jpg';
             //Upload file
             $move = $file->move(public_path($dest), $new_image_name);
+
             //Delete old image if exist
             $oldUserPhoto = auth()->user()->avatar;
             if ($oldUserPhoto != null) {
                 unlink($dest . $oldUserPhoto);
             }
+
             //Update new picture in database
             auth()->user()->update(['avatar' => $new_image_name]);
             return back()->withStatusAvatar(__('Profilkép módosítása sikeresem megtörtént!'));
