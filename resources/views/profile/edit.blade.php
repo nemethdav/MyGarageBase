@@ -105,10 +105,10 @@
                                         </div>@endif
 
                                 <div class="author">
-                                    <a href="storage/imgs/avatars/{{ auth()->user()->avatar == '' ? 'avatar.jpg' : auth()->user()->avatar }}"
+                                    <a href="{{asset('storage/imgs/avatars') . auth()->user()->avatar}}"
                                        target="_blank">
                                         <img class="avatar mb-3"
-                                             src="storage/imgs/avatars/{{ auth()->user()->avatar == '' ? 'avatar.jpg' : auth()->user()->avatar }}"
+                                             src="{{asset('storage/imgs/avatars') . auth()->user()->avatar}}"
                                              alt="Profilkép">
                                     </a>
                                     <h5 class="title font-weight-bold">{{ auth()->user()->name }}</h5>

@@ -50,7 +50,7 @@ class ProfileController extends Controller
         $dest = 'storage/imgs/avatars/'; //Where user images will be stored
 
         if (($file = $request->file('changeAvatar')) != null) {
-            $new_image_name = 'avatar' . uniqid() . '.jpg';
+            $new_image_name = auth()->user()->name . 'avatar' . uniqid() . '.jpg';
             //Upload file
             $move = $file->move(public_path($dest), $new_image_name);
 
@@ -61,7 +61,7 @@ class ProfileController extends Controller
             }
 
             //Update new picture in database
-            auth()->user()->update(['avatar' => $new_image_name]);
+            auth()->user()->update(['avatar' => "/" . $new_image_name]);
             return back()->withStatusAvatar(__('Profilkép módosítása sikeresem megtörtént!'));
         } else {
             return back()->withStatusErrorAvatar(__('Hiba a kép módosítása közben. Kérem adjon meg egy fájlt!'));
