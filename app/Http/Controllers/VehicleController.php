@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class VehicleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,8 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        //
+        $vehicles = \auth()->user()->vehicles()->paginate(20);
+        return $vehicles;
     }
 
     /**
@@ -30,18 +36,38 @@ class VehicleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * //     * @param \Illuminate\Http\Request $request
+     * @param App\Http\Requests\VehicleCreateRequest $request
      * @return \Illuminate\Http\Response
      */
+//    public function store(VehicleCreateRequest $request)
     public function store(Request $request)
     {
-        //
+        \auth()->user()->vehicles()->create([
+            'user_id' => \auth()->user()->id,
+            'vehicleNickName' => $request->vehicle["vehicleNickName"],
+            'vehicle_type' => $request->vehicle["vehicle_type"],
+            'vehicle_image' => $request->vehicle["vehicle_image"],
+            'manufacturer' => $request->vehicle["manufacturer"],
+            'type' => $request->vehicle["type"],
+            'license_plate_number' => $request->vehicle["license_plate_number"],
+            'year_of_manufacture' => $request->vehicle["year_of_manufacture"],
+            'chassis_number' => $request->vehicle["chassis_number"],
+            'motor_number' => $request->vehicle["motor_number"],
+            'motor_code' => $request->vehicle["motor_code"],
+            'cylinder_capacity' => $request->vehicle["cylinder_capacity"],
+            'performance_kw' => $request->vehicle["performance_kw"],
+            'performance_le' => $request->vehicle["performance_le"],
+            'validity_of_technical_Examination' => $request->vehicle["validity_of_technical_Examination"]
+        ]);
+
+        return "Jármű elmentve";
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Vehicle  $vehicles
+     * @param \App\Models\Vehicle $vehicles
      * @return \Illuminate\Http\Response
      */
     public function show(Vehicle $vehicles)
@@ -52,7 +78,7 @@ class VehicleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Vehicle  $vehicles
+     * @param \App\Models\Vehicle $vehicles
      * @return \Illuminate\Http\Response
      */
     public function edit(Vehicle $vehicles)
@@ -63,23 +89,56 @@ class VehicleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Vehicle  $vehicles
+     * @param \Illuminate\Http\Request $request
+     * @param App\Http\Requests\VehicleCreateRequest $request
+     * @param \App\Models\Vehicle $vehicles
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Vehicle $vehicles)
+//    public function update(VehicleCreateRequest $request, Vehicle $vehicles)
+//    public function update(Request $request, Vehicle $vehicles)
+    public function update(Request $request, $id)
     {
-        //
+        $vehicle = Vehicle::findOrFail($id);
+
+        if ($vehicle) { //Ha létrezik az adott id-jű jármű
+            $vehicle->update([
+                'user_id' => \auth()->user()->id,
+                'vehicleNickName' => $request->vehicle["vehicleNickName"],
+                'vehicle_type' => $request->vehicle["vehicle_type"],
+                'vehicle_image' => $request->vehicle["vehicle_image"],
+                'manufacturer' => $request->vehicle["manufacturer"],
+                'type' => $request->vehicle["type"],
+                'license_plate_number' => $request->vehicle["license_plate_number"],
+                'year_of_manufacture' => $request->vehicle["year_of_manufacture"],
+                'chassis_number' => $request->vehicle["chassis_number"],
+                'motor_number' => $request->vehicle["motor_number"],
+                'motor_code' => $request->vehicle["motor_code"],
+                'cylinder_capacity' => $request->vehicle["cylinder_capacity"],
+                'performance_kw' => $request->vehicle["performance_kw"],
+                'performance_le' => $request->vehicle["performance_le"],
+                'validity_of_technical_Examination' => $request->vehicle["validity_of_technical_Examination"]
+            ]);
+            return $vehicle;
+        }
+
+        return "A jármű nem található";
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Vehicle  $vehicles
+     * @param \App\Models\Vehicle $vehicles
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vehicle $vehicles)
+//    public function destroy(Vehicle $vehicles)
+    public function destroy($id)
     {
-        //
+        try {
+            $vehicles = Vehicle::findOrFail($id);
+            $vehicles->delete();
+            return "Jármű törölve";
+        } catch (\Exception $exception) {
+            return "A jármű nem található" . $exception;
+        }
     }
 }

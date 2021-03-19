@@ -27,6 +27,10 @@ Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home')->
 
 Route::group(['middleware' => 'auth'], function () {
 
+//    Route::get('vehicles', function (){
+//       return view('pages.vehicles');
+//    })->name('vehiclesIndex');
+
 	Route::get('table-list', function () {
 		return view('pages.table_list');
 	})->name('table');
@@ -43,3 +47,5 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
     Route::put('profile/avatar', [ProfileController::class, 'avatar'])->name('profile.avatar');
 });
+
+//Route::resource('/vehicle', VehicleController::class);
