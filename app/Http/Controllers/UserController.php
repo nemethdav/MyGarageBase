@@ -19,7 +19,7 @@ class UserController extends Controller
 //        return view('users.index', ['users' => $model->paginate(15)]);
     }
 
-    function apiGen(Request $request)
+    function tokenGen(Request $request)
     {
         $user= User::where('email', $request->email)->first();
         // print_r($data);
