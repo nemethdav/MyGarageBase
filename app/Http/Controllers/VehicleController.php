@@ -133,12 +133,8 @@ class VehicleController extends Controller
 //    public function destroy(Vehicle $vehicles)
     public function destroy($id)
     {
-        try {
-            $vehicles = Vehicle::findOrFail($id);
-            $vehicles->delete();
-            return "Jármű törölve";
-        } catch (\Exception $exception) {
-            return "A jármű nem található" . $exception;
-        }
+        $vehicles = Vehicle::findOrFail($id);
+        $vehicles->delete();
+        return "Jármű törölve";
     }
 }
