@@ -50,7 +50,7 @@ class ProfileController extends Controller
         $dest = 'storage/imgs/avatars/'; //Where user images will be stored
 
         if (($file = $request->file('changeAvatar')) != null) {
-            $new_image_name = auth()->user()->name . 'Avatar' . uniqid() . $request->changeAvatar->getClientOriginalExtension();
+            $new_image_name = auth()->user()->name . 'Avatar' . uniqid() . "." . $request->changeAvatar->getClientOriginalExtension();
             //Upload file
             $move = $file->move(public_path($dest), $new_image_name);
 
