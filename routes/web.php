@@ -27,9 +27,9 @@ Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home')->
 
 Route::group(['middleware' => 'auth'], function () {
 
-//    Route::get('vehicles', function (){
-//       return view('pages.vehicles');
-//    })->name('vehiclesIndex');
+    Route::get('vehicles', function (){
+       return view('pages.vehicles');
+    })->name('vehiclesIndex');
 
 	Route::get('table-list', function () {
 		return view('pages.table_list');
