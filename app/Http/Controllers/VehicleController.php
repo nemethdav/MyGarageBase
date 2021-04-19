@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\VehicleResource;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 
 class VehicleController extends Controller
 {
@@ -30,7 +32,7 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.vehicles.create');
     }
 
     /**
@@ -72,7 +74,7 @@ class VehicleController extends Controller
      */
     public function show(Vehicle $vehicles)
     {
-        //
+        return view('pages.vehicles.show');
     }
 
     /**
@@ -130,11 +132,10 @@ class VehicleController extends Controller
      * @param \App\Models\Vehicle $vehicles
      * @return \Illuminate\Http\Response
      */
-//    public function destroy(Vehicle $vehicles)
-    public function destroy($id)
+    public function destroy(Vehicle $vehicles)
     {
-        $vehicles = Vehicle::findOrFail($id);
         $vehicles->delete();
-        return "Jármű törölve";
+//        return "Jármű törölve";
+        return redirect()->back()->with('message', 'Jármű sikeresen törölve');
     }
 }

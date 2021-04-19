@@ -18,7 +18,7 @@
                     <p>{{ __('Főképernyő') }}</p>
                 </a>
             </li>
-            <li class="nav-item {{ ($activePage == 'profile' || $activePage == 'vehiclesIndex') ? ' active' : '' }}">
+            <li class="nav-item {{ ($activePage == 'profile') ? ' active' : '' }}">
                 <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="true">
                     <i class="material-icons">settings</i>
                     <p>{{ __('Beállítások') }}
@@ -33,8 +33,28 @@
                                 <span class="sidebar-normal">{{ __('Felhasználói profil') }} </span>
                             </a>
                         </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="nav-item {{ ($activePage == 'createVehicle' || $activePage == 'myVehicles') ? ' active' : '' }}">
+                <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="true">
+                    <i class="material-icons">settings</i>
+                    <p>{{ __('Járművek') }}
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse show" id="settings">
+                    <ul class="nav">
+                        <li class="nav-item{{ $activePage == 'createVehicle' ? ' active' : '' }}">
+                            <a class="nav-link" href="{{ route('vehicle.create') }}">
+                                <i class="material-icons">add</i>
+                                <i class="material-icons">directions_car</i>
+                                <span class="sidebar-normal">{{ __('Jármű hozzáadása') }} </span>
+                            </a>
+                        </li>
                         <li class="nav-item{{ $activePage == 'myVehicles' ? ' active' : '' }}">
-                            <a class="nav-link" href="{{ route('vehiclesIndex') }}">
+                            <a class="nav-link" href="{{ route('vehicle.index') }}">
                                 <i class="material-icons">directions_car</i>
                                 <span class="sidebar-normal">{{ __('Jámrűveim') }} </span>
                             </a>
@@ -42,6 +62,7 @@
                     </ul>
                 </div>
             </li>
+
             <li class="nav-item{{ $activePage == 'table' ? ' active' : '' }}">
                 <a class="nav-link" href="{{ route('table') }}">
                     <i class="material-icons">content_paste</i>
@@ -55,7 +76,8 @@
                 </a>
             </li>
             <li class="nav-item mt-5">
-                <a class="nav-link text-white btn-danger" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                <a class="nav-link text-white btn-danger" href="{{ route('logout') }}"
+                   onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                     <i class="material-icons">logout</i>
                     <p>{{ __('Kijelentkezés') }}</p>
                 </a>
