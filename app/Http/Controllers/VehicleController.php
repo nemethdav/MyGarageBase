@@ -16,8 +16,10 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        $vehicles = \auth()->user()->vehicles()->paginate(20);
-        return $vehicles;
+        Paginator::useBootstrap();
+        $vehicles = \auth()->user()->vehicles()->orderBy('id', 'ASC')->paginate(10);
+//        return $vehicles;
+        return view('pages.vehicles.index', compact('vehicles'));
     }
 
     /**
