@@ -4,15 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\VehicleResource;
 use App\Models\Vehicle;
-use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 
 class VehicleController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Display a listing of the resource.
@@ -42,8 +37,7 @@ class VehicleController extends Controller
      * @param App\Http\Requests\VehicleCreateRequest $request
      * @return \Illuminate\Http\Response
      */
-//    public function store(VehicleCreateRequest $request)
-    public function store(Request $request)
+    public function store(VehicleCreateRequest $request)
     {
         \auth()->user()->vehicles()->create([
             'user_id' => \auth()->user()->id,
@@ -96,14 +90,13 @@ class VehicleController extends Controller
      * @param \App\Models\Vehicle $vehicles
      * @return \Illuminate\Http\Response
      */
-//    public function update(VehicleCreateRequest $request, Vehicle $vehicles)
+    public function update(VehicleCreateRequest $request, Vehicle $vehicles)
 //    public function update(Request $request, Vehicle $vehicles)
-    public function update(Request $request, $id)
+//    public function update(Request $request, $id)
     {
-        $vehicle = Vehicle::findOrFail($id);
 
-        if ($vehicle) { //Ha létrezik az adott id-jű jármű
-            $vehicle->update([
+        if ($vehicles) { //Ha létrezik az adott id-jű jármű
+            $vehicles->update([
                 'user_id' => \auth()->user()->id,
                 'vehicleNickName' => $request->vehicle["vehicleNickName"],
                 'vehicle_type' => $request->vehicle["vehicle_type"],
@@ -120,7 +113,7 @@ class VehicleController extends Controller
                 'performance_le' => $request->vehicle["performance_le"],
                 'validity_of_technical_Examination' => $request->vehicle["validity_of_technical_Examination"]
             ]);
-            return $vehicle;
+            return $vehicles;
         }
 
         return "A jármű nem található";
@@ -129,13 +122,16 @@ class VehicleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Vehicle $vehicles
+     * @param \App\Models\Vehicle $vehicle
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vehicle $vehicles)
+    public function destroy(Vehicle $vehicle)
     {
-        $vehicles->delete();
-//        return "Jármű törölve";
-        return redirect()->back()->with('message', 'Jármű sikeresen törölve');
+        try {
+            $vehicle->delete();
+            return redirect()->back()->with('message', 'ToDo sikeresen törölve');
+        } catch (\Exception $exception) {
+            return redirect()->back()->with('error', 'A ToDo törlése közbe hiba lépett fel. Hibaüzenet: ' . $exception);
+        }
     }
 }

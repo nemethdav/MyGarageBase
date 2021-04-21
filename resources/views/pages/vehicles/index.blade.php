@@ -23,23 +23,29 @@
                             </h3>
 
                         </div>
+
+                        <x-alert />
+
                         <div class="card-body table-responsive">
                             <table class="table table-hover">
                                 <thead class="text-warning text-center">
                                 <th width="5%">ID</th>
-                                <th width="">Rendszám</th>
-                                <th width="">Márka-Típus</th>
-                                <th width="">Hengerűrtartalom</th>
+                                <th>Jármű beceneve</th>
+                                <th>Rendszám</th>
+                                <th>Márka-Típus</th>
+                                <th>Hengerűrtartalom</th>
                                 <th colspan="2" width="">Teljesítmény</th>
                                 <th width="25%">Műveletek</th>
                                 </thead>
                                 <tbody class="text-center">
                                 @forelse($vehicles as $vehicle)
                                 <tr>
-                                    <td>{{ ($loop->index) + 1 }}</td>
+{{--                                    <td>{{ ($loop->index) + 1 }}</td>--}}
+                                    <td>{{ ($vehicle->id) }}</td>
+                                    <td>{{ ($vehicle->vehicleNickName) }}</td>
                                     <td>{{ $vehicle->license_plate_number }}</td>
                                     <td>{{ $vehicle->manufacturer }} {{ $vehicle->type }}</td>
-                                    <td>{{ $vehicle->cylinder_capacity }}</td>
+                                    <td>{{ $vehicle->cylinder_capacity }} cm<sup>3</sup> </td>
                                     <td>{{ $vehicle->performance_kw }} kW</td>
                                     <td>{{ $vehicle->performance_le }} LE</td>
                                     <td>
@@ -51,10 +57,20 @@
                                                 class="btn btn-warning btn-link btn-sm">
                                             <i class="material-icons">edit</i>
                                         </button>
+                                        <span>
                                         <button type="button" rel="tooltip" title="Törlés"
-                                                class="btn btn-danger btn-link btn-sm">
+                                                class="btn btn-danger btn-link btn-sm"
+                                                onclick="if(confirm('Biztosan törölni szeretné?')){
+                                                    document.getElementById('delete{{ $vehicle->id }}').submit()
+                                                    }">
                                             <i class="material-icons">close</i>
                                         </button>
+                                        <form action="{{ route('vehicle.destroy', $vehicle->id) }}" method="POST" style="display: none"
+                                              id={{ 'delete'.$vehicle->id }}>
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
+                                        </span>
                                     </td>
                                 </tr>
                                 @empty
