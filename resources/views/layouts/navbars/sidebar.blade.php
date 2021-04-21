@@ -37,7 +37,8 @@
                 </div>
             </li>
 
-            <li class="nav-item {{ ($activePage == 'createVehicle' || $activePage == 'myVehicles') ? ' active' : '' }}">
+            <li class="nav-item {{ ($activePage == 'createVehicle' || $activePage == 'myVehicles' ||
+                $activePage == 'showVehicle' || $activePage == 'editVehicle') ? ' active' : '' }}">
                 <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="true">
                     <i class="material-icons">settings</i>
                     <p>{{ __('Járművek') }}

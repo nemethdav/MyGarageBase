@@ -24,7 +24,7 @@
 
                         </div>
 
-                        <x-alert />
+                        <x-alert/>
 
                         <div class="card-body table-responsive">
                             <table class="table table-hover">
@@ -39,44 +39,50 @@
                                 </thead>
                                 <tbody class="text-center">
                                 @forelse($vehicles as $vehicle)
-                                <tr>
-{{--                                    <td>{{ ($loop->index) + 1 }}</td>--}}
-                                    <td>{{ ($vehicle->id) }}</td>
-                                    <td>{{ ($vehicle->vehicleNickName) }}</td>
-                                    <td>{{ $vehicle->license_plate_number }}</td>
-                                    <td>{{ $vehicle->manufacturer }} {{ $vehicle->type }}</td>
-                                    <td>{{ $vehicle->cylinder_capacity }} cm<sup>3</sup> </td>
-                                    <td>{{ $vehicle->performance_kw }} kW</td>
-                                    <td>{{ $vehicle->performance_le }} LE</td>
-                                    <td>
-                                        <button type="button" rel="tooltip" title="Részletek"
-                                                class="btn btn-success btn-link btn-sm">
-                                            <i class="material-icons">launch</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" title="Szerkesztés"
-                                                class="btn btn-warning btn-link btn-sm">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <span>
-                                        <button type="button" rel="tooltip" title="Törlés"
-                                                class="btn btn-danger btn-link btn-sm"
-                                                onclick="if(confirm('Biztosan törölni szeretné?')){
-                                                    document.getElementById('delete{{ $vehicle->id }}').submit()
-                                                    }">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                        <form action="{{ route('vehicle.destroy', $vehicle->id) }}" method="POST" style="display: none"
-                                              id={{ 'delete'.$vehicle->id }}>
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
+                                    <tr>
+                                        {{--                                    <td>{{ ($loop->index) + 1 }}</td>--}}
+                                        <td>{{ ($vehicle->id) }}</td>
+                                        <td>{{ ($vehicle->vehicleNickName) }}</td>
+                                        <td>{{ $vehicle->license_plate_number }}</td>
+                                        <td>{{ $vehicle->manufacturer }} {{ $vehicle->type }}</td>
+                                        <td>{{ $vehicle->cylinder_capacity }} cm<sup>3</sup></td>
+                                        <td>{{ $vehicle->performance_kw }} kW</td>
+                                        <td>{{ $vehicle->performance_le }} LE</td>
+                                        <td>
+                                            <span>
+                                                <a href="{{ route("vehicle.show", $vehicle->id) }}" rel="tooltip"
+                                                   title="Részletek"
+                                                   class="btn btn-success btn-link btn-sm">
+                                                    <i class="material-icons">launch</i>
+                                                </a>
+                                            </span>
+                                            <span>
+                                                <a rel="tooltip" title="Szerkesztés"
+                                                   class="btn btn-warning btn-link btn-sm">
+                                                    <i class="material-icons">edit</i>
+                                                </a>
+                                            </span>
+                                            <span rel="tooltip" title="Törlés"
+                                                  class="btn btn-danger btn-link btn-sm"
+                                                  onclick="if(confirm('Biztosan törölni szeretné?')){
+                                                      document.getElementById('delete{{ $vehicle->id }}').submit()
+                                                      }">
+                                                <i class="material-icons">close</i>
+                                                <form action="{{ route('vehicle.destroy', $vehicle->id) }}"
+                                                      method="POST"
+                                                      style="display: none"
+                                                      id={{ 'delete'.$vehicle->id }}>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    </form>
                                         </span>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
                                 @empty
                                     <tr>
                                         <td colspan="7">
-                                            Még egy járműve sincs rögzítve! <a href="{{ route('vehicle.create') }}">Ide kattintva tud létrehozni egyet!</a>
+                                            Még egy járműve sincs rögzítve! <a href="{{ route('vehicle.create') }}">Ide
+                                                kattintva tud létrehozni egyet!</a>
                                         </td>
                                     </tr>
                                 @endforelse

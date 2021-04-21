@@ -63,12 +63,13 @@ class VehicleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Vehicle $vehicles
+     * @param \App\Models\Vehicle $vehicle
      * @return \Illuminate\Http\Response
      */
-    public function show(Vehicle $vehicles)
+    public function show(Vehicle $vehicle)
     {
-        return view('pages.vehicles.show');
+//        $vehicleType = $vehicle->vehicleType()->vehicle_type;
+        return view('pages.vehicles.show', compact(["vehicle"]));
     }
 
     /**
