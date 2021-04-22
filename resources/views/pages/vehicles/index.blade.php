@@ -24,9 +24,10 @@
 
                         </div>
 
-                        <x-alert/>
-
                         <div class="card-body table-responsive">
+
+                            <x-alert/>
+
                             <table class="table table-hover">
                                 <thead class="text-warning text-center">
                                 <th width="5%">ID</th>

@@ -14,7 +14,11 @@
 
                         </div>
                         <div class="card-body text-center">
-                            <form action="">
+
+                            <x-alert />
+
+                            <form novalidate action="{{ route('vehicle.store') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
                                 <img src="{{ asset('storage/imgs/vehicles/default.png') }}" width="100" alt="Jármű kép" class="mb-3"><br>
                                 <label for="vehicle_image">Jármű profilkép megváltoztatása</label><br>
                                 <input type="file" id="vehicle_image" name="vehicle_image" accept="image/*">
@@ -24,12 +28,12 @@
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <input type="text" class="form-control" name="vehicleNickName" id="vehicleNickName"
-                                                   placeholder="Jármű beceneve"/>
+                                                   placeholder="Jármű beceneve" value="{{ old('vehicleNickName') }}" />
                                         </div>
                                     </div>
                                 </div>
 
-                                <select class="custom-select">
+                                <select class="custom-select" name="vehicle_type" id="vehicle_type">
                                     <option selected>Jármű fajtája</option>
                                     <option value="1">Motorkerékpár</option>
                                     <option value="2">Személyautó</option>
@@ -40,7 +44,7 @@
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <input type="text" class="form-control" name="manufacturer" id="manufacturer"
-                                                   placeholder="Jármű gyártója" required/>
+                                                   placeholder="Jármű gyártója" required min="3" max="255" value="{{ old('manufacturer') }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -50,7 +54,7 @@
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <input type="text" class="form-control" name="type" id="type"
-                                                   placeholder="Jármű típusa" required/>
+                                                   placeholder="Jármű típusa" required min="3" max="255" value="{{ old('type') }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -61,7 +65,7 @@
                                         <div class="form-group">
                                             <input type="text" class="form-control" name="license_plate_number"
                                                    id="license_plate_number"
-                                                   placeholder="Jármű forgalmi rendszáma"/>
+                                                   placeholder="Jármű forgalmi rendszáma" value="{{ old('license_plate_number') }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -72,7 +76,7 @@
                                         <div class="form-group">
                                             <input type="number" class="form-control" name="year_of_manufacture"
                                                    id="year_of_manufacture"
-                                                   placeholder="Jármű gyártási éve" min="1900" required/>
+                                                   placeholder="Jármű gyártási éve" min="1900" required value="{{ old('year_of_manufacture') }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -82,7 +86,7 @@
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <input type="text" class="form-control" name="chassis_number" id="chassis_number"
-                                                   placeholder="Jármű alvázszáma"/>
+                                                   placeholder="Jármű alvázszáma" value="{{ old('chassis_number') }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -92,7 +96,7 @@
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <input type="text" class="form-control" name="motor_number" id="motor_number"
-                                                   placeholder="Jármű motorszáma"/>
+                                                   placeholder="Jármű motorszáma" value="{{ old('motor_number') }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -102,7 +106,7 @@
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <input type="text" class="form-control" name="motor_code" id="motor_code"
-                                                   placeholder="Jármű motorkódja"/>
+                                                   placeholder="Jármű motorkódja" value="{{ old('motor_code') }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -112,7 +116,7 @@
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <input type="number" class="form-control" name="cylinder_capacity" id="cylinder_capacity"
-                                                   placeholder="Jármű hengerűrtartalma" min="0" required/>
+                                                   placeholder="Jármű hengerűrtartalma" min="0" required value="{{ old('cylinder_capacity') }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -122,7 +126,7 @@
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <input type="number" class="form-control" name="performance_kw" id="performance_kw"
-                                                   placeholder="Jármű teljesítménye kW-ban megadva" min="0" required/>
+                                                   placeholder="Jármű teljesítménye kW-ban megadva" min="0" required value="{{ old('performance_kw') }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -132,7 +136,7 @@
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <input type="number" class="form-control" name="performance_le" id="performance_le"
-                                                   placeholder="Jármű teljesítménye LE-ben megadva" min="0" required/>
+                                                   placeholder="Jármű teljesítménye LE-ben megadva" min="0" required value="{{ old('performance_le') }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -142,7 +146,7 @@
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <input type="date" class="form-control" name="validity_of_technical_Examination" id="validity_of_technical_Examination"
-                                                   placeholder="Műszaki vizsga érvényessége" min="1900-01-01"/>
+                                                   placeholder="Műszaki vizsga érvényessége" min="1900-01-01" value="{{ old('validity_of_technical_Examination') }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -152,7 +156,7 @@
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <input type="date" class="form-control" name="date_of_purchase" id="date_of_purchase"
-                                                   placeholder="Jármű eladásának dátuma" min="1900-01-01"/>
+                                                   placeholder="Jármű eladásának dátuma" min="1900-01-01" value="{{ old('date_of_purchase') }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -162,14 +166,18 @@
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <input type="date" class="form-control" name="date_of_sale" id="date_of_sale"
-                                                   placeholder="Jármű eladásának dátuma" min="1900-01-01"/>
+                                                   placeholder="Jármű eladásának dátuma" min="1900-01-01" value="{{ old('date_of_sale') }}"/>
                                         </div>
                                     </div>
                                 </div>
 
-
                                 <div class="form-group row">
                                     <div class="col-sm-12">
+                                        <a href="{{ route('vehicle.index') }}">
+                                            <button type="button" class="btn btn-danger mt-2 ml-2" rel="tooltip"
+                                                    title="Visszalépéssel az adatok nem kerülnek mentésre!">Visszalépés
+                                            </button>
+                                        </a>
                                         <button type="submit" class="btn btn-warning">Mentés</button>
                                     </div>
                                 </div>
@@ -180,5 +188,11 @@
             </div>
         </div>
     </div>
+<script>
+    import CalcLE from "../../../js/components/CalcLE";
 
+    export default {
+        components: {CalcLE}
+    }
+</script>
 @endsection
