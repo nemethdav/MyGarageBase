@@ -89,12 +89,12 @@ class VehicleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Vehicle $vehicles
+     * @param \App\Models\Vehicle $vehicle
      * @return \Illuminate\Http\Response
      */
-    public function edit(Vehicle $vehicles)
+    public function edit(Vehicle $vehicle)
     {
-        //
+        return view('pages.vehicles.edit', compact('vehicle'));
     }
 
     /**
@@ -102,37 +102,48 @@ class VehicleController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param App\Http\Requests\VehicleCreateRequest $request
-     * @param \App\Models\Vehicle $vehicles
+     * @param \App\Models\Vehicle $vehicle
      * @return \Illuminate\Http\Response
      */
-    public function update(VehicleCreateRequest $request, Vehicle $vehicles)
-//    public function update(Request $request, Vehicle $vehicles)
-//    public function update(Request $request, $id)
+    public function update(VehicleCreateRequest $request, Vehicle $vehicle)
     {
+        $image_name = null;
+        $dest = 'storage/imgs/vehicles/'; //Image Directory
 
-        if ($vehicles) { //Ha létrezik az adott id-jű jármű
-            $vehicles->update([
-                'user_id' => \auth()->user()->id,
-                'vehicleNickName' => $request->vehicle["vehicleNickName"],
-                'vehicle_type' => $request->vehicle["vehicle_type"],
-                'vehicle_image' => $request->vehicle["vehicle_image"],
-                'manufacturer' => $request->vehicle["manufacturer"],
-                'type' => $request->vehicle["type"],
-                'license_plate_number' => $request->vehicle["license_plate_number"],
-                'year_of_manufacture' => $request->vehicle["year_of_manufacture"],
-                'chassis_number' => $request->vehicle["chassis_number"],
-                'motor_number' => $request->vehicle["motor_number"],
-                'motor_code' => $request->vehicle["motor_code"],
-                'cylinder_capacity' => $request->vehicle["cylinder_capacity"],
-                'performance_kw' => $request->vehicle["performance_kw"],
-                'performance_le' => $request->vehicle["performance_le"],
-                'validity_of_technical_Examination' => $request->vehicle["validity_of_technical_Examination"]
-            ]);
-            return $vehicles;
+        if (($file = $request->file('vehicle_image')) != null) {
+            $image_name = $request->vehicleNickName . "." . uniqid() . "." . $request->vehicle_image->getClientOriginalExtension();
+            //Upload file
+            $move = $file->move(public_path($dest), $image_name);
+
+            //Delete old image if exist
+            $oldVehicleImage = $vehicle->vehicle_image;
+            if ($oldVehicleImage != null)
+                unlink($dest . $oldVehicleImage);
         }
 
-        return "A jármű nem található";
+        $vehicle->update([
+            'user_id' => \auth()->user()->id,
+            'vehicleNickName' => $request->vehicleNickName,
+            'vehicle_type' => $request->vehicle_type,
+            'vehicle_image' => $image_name,
+            'manufacturer' => $request->manufacturer,
+            'type' => $request->type,
+            'license_plate_number' => $request->license_plate_number,
+            'year_of_manufacture' => $request->year_of_manufacture,
+            'chassis_number' => $request->chassis_number,
+            'motor_number' => $request->motor_number,
+            'motor_code' => $request->motor_code,
+            'cylinder_capacity' => $request->cylinder_capacity,
+            'performance_kw' => $request->performance_kw,
+            'performance_le' => $request->performance_le,
+            'validity_of_technical_Examination' => $request->validity_of_technical_Examination,
+            'date_of_purchase' => $request->date_of_purchase,
+            'date_of_sale' => $request->date_of_sale
+        ]);
+
+        return redirect(route('vehicle.index'))->with('message', 'Jármű sikeresen szerkesztve');
     }
+
 
     /**
      * Remove the specified resource from storage.
