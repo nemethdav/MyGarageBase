@@ -6,18 +6,18 @@
         Tip 2: you can also add an image using data-image tag
     -->
     <div class="logo">
-        <a href="{{route('home')}}" class="simple-text logo-normal">
+        <a href="{{route('vehicle.index')}}" class="simple-text logo-normal">
             {{ __('MyGarageBase') }}
         </a>
     </div>
     <div class="sidebar-wrapper">
         <ul class="nav">
-            <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">
-                <a class="nav-link" href="{{ route('home') }}">
-                    <i class="material-icons">dashboard</i>
-                    <p>{{ __('Főképernyő') }}</p>
-                </a>
-            </li>
+{{--            <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">--}}
+{{--                <a class="nav-link" href="{{ route('home') }}">--}}
+{{--                    <i class="material-icons">dashboard</i>--}}
+{{--                    <p>{{ __('Főképernyő') }}</p>--}}
+{{--                </a>--}}
+{{--            </li>--}}
             <li class="nav-item {{ ($activePage == 'profile') ? ' active' : '' }}">
                 <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="true">
                     <i class="material-icons">settings</i>
@@ -39,13 +39,13 @@
 
             <li class="nav-item {{ ($activePage == 'createVehicle' || $activePage == 'myVehicles' ||
                 $activePage == 'showVehicle' || $activePage == 'editVehicle') ? ' active' : '' }}">
-                <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="true">
-                    <i class="material-icons">settings</i>
+                <a class="nav-link" data-toggle="collapse" href="#vehicles" aria-expanded="true">
+                    <i class="material-icons">directions_car</i>
                     <p>{{ __('Járművek') }}
                         <b class="caret"></b>
                     </p>
                 </a>
-                <div class="collapse show" id="settings">
+                <div class="collapse show" id="vehicles">
                     <ul class="nav">
                         <li class="nav-item{{ $activePage == 'createVehicle' ? ' active' : '' }}">
                             <a class="nav-link" href="{{ route('vehicle.create') }}">

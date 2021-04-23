@@ -58,7 +58,7 @@
                                                 </a>
                                             </span>
                                             <span>
-                                                <a rel="tooltip" title="Szerkesztés"
+                                                <a href="{{ route('vehicle.edit', $vehicle->id) }}" rel="tooltip" title="Szerkesztés"
                                                    class="btn btn-warning btn-link btn-sm">
                                                     <i class="material-icons">edit</i>
                                                 </a>
