@@ -45,7 +45,7 @@ class VehicleController extends Controller
         $image_name = null;
         $dest = 'storage/imgs/vehicles/'; //Image Directory
         if (($file = $request->file('vehicle_image')) != null) {
-            $image_name = $request->vehicleNickName . uniqid() . "." . $request->vehicle_image->getClientOriginalExtension();
+            $image_name = $request->vehicleNickName . "." . uniqid() . "." . $request->vehicle_image->getClientOriginalExtension();
             //Upload file
             $move = $file->move(public_path($dest), $image_name);
         }

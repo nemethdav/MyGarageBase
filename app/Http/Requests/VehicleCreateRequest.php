@@ -30,9 +30,7 @@ class VehicleCreateRequest extends FormRequest
             'cylinder_capacity' => ['required', 'min:0'],
             'performance_kw' => ['required', 'min:0'],
             'performance_le' => ['required', 'min:0'],
-            'validity_of_technical_Examination' => ['date'],
             'date_of_purchase' => ['date'],
-            'date_of_sale' => ['date'],
         ];
     }
 
@@ -63,11 +61,7 @@ class VehicleCreateRequest extends FormRequest
             'performance_le.required' => 'A jármű teljesítményének (LE) megadása kötelező!',
             'performance_le.min' => 'A jármű teljesítménye (LE) nem lehet negatív!',
 
-            'validity_of_technical_Examination.date' => "A műszaki vizsga érvényessége csak dátum formátumú lehet!",
-
-            'date_of_purchase.date' => "A vásárlás csak dátum formátumú lehet!",
-
-            'date_of_sale.date' => "Az eladás csak dátum formátumú lehet!",
+            'date_of_purchase.date' => "A vásárlás csak dátum formátumú lehet!"
         ];
     }
 }

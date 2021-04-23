@@ -188,11 +188,5 @@
             </div>
         </div>
     </div>
-<script>
-    import CalcLE from "../../../js/components/CalcLE";
 
-    export default {
-        components: {CalcLE}
-    }
-</script>
 @endsection
