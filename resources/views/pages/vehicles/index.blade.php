@@ -81,7 +81,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="7">
+                                        <td colspan="8">
                                             Még egy járműve sincs rögzítve! <a href="{{ route('vehicle.create') }}">Ide
                                                 kattintva tud létrehozni egyet!</a>
                                         </td>

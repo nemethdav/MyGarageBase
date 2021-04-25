@@ -7,10 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }} - {{ $titlePage }}</title>
 
-{{--    <link rel="apple-touch-icon-precomposed" type="image/png" sizes="76x76"--}}
-{{--          href="{{ asset('material') }}/img/apple-icon.png">--}}
-{{--    <link rel="icon" type="image/png" href="{{ asset('material') }}/img/favicon.png">--}}
-{{--    <link rel="shortcut icon" type="image/png" href="{{ asset('material') }}/img/favicon.png">--}}
+{{--    Vue js--}}
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
     <link rel="shortcut icon" type="image/png" href="{{ asset('material/img/favicon.png') }}">
     <link rel="apple-touch-icon" type="image/png" sizes="57x57" href="{{ asset('material/img/apple-icon-57.png') }}"><!-- iPhone -->

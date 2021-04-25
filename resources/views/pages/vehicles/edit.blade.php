@@ -45,9 +45,18 @@
                                 </div>
 
                                 <select class="custom-select" name="vehicle_type" id="vehicle_type">
-                                    <option selected>Jármű fajtája</option>
-                                    <option value="1">Motorkerékpár</option>
-                                    <option value="2">Személyautó</option>
+                                    <option>Jármű fajtája</option>
+                                    @foreach($vehicleTypes as $vehicleType)
+                                        <option value="{{ $vehicleType->id }}"
+                                        @if (old('vehicle_type') == null)
+                                            {{ $vehicleType->id == ($loop->index) + 1 ? 'selected' : '' }}
+                                            @else
+                                            {{ old('vehicle_type') == $vehicleType->id ? 'selected' : '' }}
+                                            @endif
+                                        >
+                                            {{ $vehicleType->vehicle_type }}
+                                        </option>
+                                    @endforeach
                                 </select>
 
                                 <div class="row">
@@ -146,28 +155,41 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <label class="col-sm-4 col-form-label" for="performance_kw">Teljesítmény
-                                        (kW)</label>
-                                    <div class="col-sm-8">
-                                        <div class="form-group">
-                                            <input type="number" class="form-control" name="performance_kw"
-                                                   id="performance_kw"
-                                                   placeholder="Jármű teljesítménye kW-ban megadva" min="0" required
-                                                   value="{{ old('performance_kw') == null ? $vehicle->performance_kw : old('performance_kw') }}"/>
+                                <div id="calc">
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label" for="performance_kw">Teljesítmény
+                                            (kW)</label>
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <input type="number" class="form-control" name="performance_kw"
+                                                       id="performance_kw"
+                                                       v-model="performance_kw"
+                                                       placeholder="Jármű teljesítménye kW-ban megadva" min="0" required
+                                                />
+                                                @if(old('performance_kw') != null)
+                                                    <script>
+                                                        let performance_kw = {!! json_encode(old('performance_kw', [])) !!};
+                                                    </script>
+                                                @else
+                                                    <script>
+                                                        let performance_kw = {{ $vehicle->performance_kw }};
+                                                    </script>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="row">
-                                    <label class="col-sm-4 col-form-label" for="performance_le">Teljesítmény
-                                        (LE)</label>
-                                    <div class="col-sm-8">
-                                        <div class="form-group">
-                                            <input type="number" class="form-control" name="performance_le"
-                                                   id="performance_le"
-                                                   placeholder="Jármű teljesítménye LE-ben megadva" min="0" required
-                                                   value="{{ old('performance_le') == null ? $vehicle->performance_le : old('performance_le') }}"/>
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label" for="performance_le">Teljesítmény
+                                            (LE)</label>
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <input type="number" class="form-control" name="performance_le"
+                                                       id="performance_le"
+                                                       v-model="performance_le"
+                                                       placeholder="Jármű teljesítménye LE-ben megadva" min="0" required
+                                                       value="{{ old('performance_le') == null ? $vehicle->performance_le : old('performance_le') }}"/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -228,5 +250,17 @@
             </div>
         </div>
     </div>
-
+    <script>
+        new Vue({
+            el: '#calc',
+            data: {
+                performance_kw: performance_kw,
+            },
+            computed: {
+                performance_le: function () {
+                    return Math.round(this.performance_kw * 1.34, 0);
+                }
+            }
+        })
+    </script>
 @endsection

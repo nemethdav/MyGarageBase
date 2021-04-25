@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\VehicleCreateRequest;
 use App\Http\Resources\VehicleResource;
 use App\Models\Vehicle;
+use App\Models\vehicleType;
 use Illuminate\Pagination\Paginator;
 
 class VehicleController extends Controller
@@ -30,7 +31,8 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        return view('pages.vehicles.create');
+        $vehicleTypes = vehicleType::all();
+        return view('pages.vehicles.create', compact('vehicleTypes'));
     }
 
     /**
@@ -94,7 +96,8 @@ class VehicleController extends Controller
      */
     public function edit(Vehicle $vehicle)
     {
-        return view('pages.vehicles.edit', compact('vehicle'));
+        $vehicleTypes = vehicleType::all();
+        return view('pages.vehicles.edit', compact(['vehicle', 'vehicleTypes']));
     }
 
     /**
