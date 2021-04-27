@@ -17,17 +17,17 @@
                             <div class="text-center">
                                 @if ($vehicle->vehicle_image == null)
                                     <img src="{{ asset("storage/imgs/vehicles/default.png") }}"
-                                         alt="Alapértelmezett jármű kép" width="500px">
+                                         alt="Alapértelmezett jármű kép" width="250px">
                                 @else
                                     <img src="{{ asset("storage/imgs/vehicles/" . $vehicle->vehicle_image) }}"
-                                         alt="{{ $vehicle->vehicleNickName }}  –  {{ $vehicle->license_plate_number }} jármű képe" width="500px">
+                                         alt="{{ $vehicle->vehicleNickName }}  –  {{ $vehicle->license_plate_number }} jármű képe" width="250px">
                                 @endif
                             </div>
 
                             <div class="text-center">
                                 <h3>{{ $vehicle->manufacturer }} {{ $vehicle->type }}</h3>
                             </div>
-                            <div class="col-6 offset-3">
+                            <div class="col-sm-12 col-md-6 offset-md-3">
                                 <div class="table-responsive">
                                     <table class="table table-hover">
                                         <tbody>
