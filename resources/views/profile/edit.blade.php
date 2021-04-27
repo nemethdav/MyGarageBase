@@ -92,25 +92,34 @@
                                     </div>
                                 @endif
                                 @if (session('status_error_avatar'))
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="alert alert-danger">
-                                                    <button type="button" class="close" data-dismiss="alert"
-                                                            aria-label="Close">
-                                                        <i class="material-icons">close</i>
-                                                    </button>
-                                                    <span>{{ session('status_error_avatar') }}</span>
-                                                </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="alert alert-danger">
+                                                <button type="button" class="close" data-dismiss="alert"
+                                                        aria-label="Close">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                                <span>{{ session('status_error_avatar') }}</span>
                                             </div>
-                                        </div>@endif
+                                        </div>
+                                    </div>@endif
 
                                 <div class="author">
-                                    <a href="{{asset('storage/imgs/avatars') . auth()->user()->avatar}}"
-                                       target="_blank">
-                                        <img class="avatar mb-3"
-                                             src="{{asset('storage/imgs/avatars') . auth()->user()->avatar}}"
-                                             alt="Profilkép">
-                                    </a>
+                                    @if(auth()->user()->avatar != null)
+                                        <a href="{{asset('storage/imgs/avatars') . auth()->user()->avatar}}"
+                                           target="_blank">
+                                            <img class="avatar mb-3"
+                                                 src="{{asset('storage/imgs/avatars') . auth()->user()->avatar}}"
+                                                 alt="Profilkép">
+                                        </a>
+                                    @else
+                                        <a href="{{ asset('storage/imgs/avatars/avatar.jpg') }}"
+                                           target="_blank">
+                                            <img class="avatar mb-3"
+                                                 src="{{asset('storage/imgs/avatars/avatar.jpg')}}"
+                                                 alt="Profilkép">
+                                        </a>
+                                    @endif
                                     <h5 class="title font-weight-bold">{{ auth()->user()->name }}</h5>
                                 </div>
 
