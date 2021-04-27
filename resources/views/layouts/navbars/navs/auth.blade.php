@@ -23,7 +23,11 @@
       <ul class="navbar-nav">
         <li class="nav-item dropdown">
           <a class="nav-link" href="#" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              @if (auth()->user()->avatar != null)
             <img src="{{asset('storage/imgs/avatars') . auth()->user()->avatar}}" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;">
+              @else
+            <img src="{{asset('storage/imgs/avatars/avatar.jpg')}}" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;">
+              @endif
               <span class="align-middle">{{ \Illuminate\Support\Facades\Auth::user()->name }} </span>
               <p class="d-lg-none d-md-block">
               {{ __('Felhasználó') }}
