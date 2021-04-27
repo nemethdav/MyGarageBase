@@ -20,7 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //Route::group(['middleware' => 'auth:sanctum'], function(){
 //    //All secure URL's
-//    Route::resource('/vehicle', VehicleController::class);
+////    Route::resource('/vehicle', VehicleController::class);
+//
 //});
 
 Route::post('/tokenGen', [UserController::class,'tokenGen']);

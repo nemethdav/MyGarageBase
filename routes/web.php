@@ -46,3 +46,4 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::resource('/vehicle', VehicleController::class)->middleware('auth');
+Route::resource('/refueling', RefuelingController::class)->middleware('auth');

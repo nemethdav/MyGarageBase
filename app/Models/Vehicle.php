@@ -22,4 +22,8 @@ class Vehicle extends Model
     {
         return $this->belongsTo(Vehicle::class);
     }
+
+    public function refuelings(){
+        return $this->hasMany(Refueling::class);
+    }
 }

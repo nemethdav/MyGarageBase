@@ -14,7 +14,8 @@ class RefuelingController extends Controller
      */
     public function index()
     {
-        //
+        $refuelings = auth()->user()->vehicle()->refuelings()->get();
+        return $refuelings;
     }
 
     /**
