@@ -47,4 +47,8 @@ class User extends Authenticatable
     public function vehicles(){
         return $this->hasMany(Vehicle::class);
     }
+
+    public function refuelings(){
+        return $this->hasMany(Refueling::class);
+    }
 }

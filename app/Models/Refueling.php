@@ -9,7 +9,16 @@ class Refueling extends Model
 {
     use HasFactory;
 
-    public function vehicle(){
+    protected $fillable = ['vehicle_id', 'user_id', 'date_time', 'km_operating_hour', 'trip1', 'trip2',
+        'refueled_quantity', 'fuel_cost', 'refuelling_cost', 'average_consumption'];
+
+    public function vehicle()
+    {
         return $this->belongsTo(Vehicle::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
