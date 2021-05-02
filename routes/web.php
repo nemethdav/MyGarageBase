@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RefuelingController;
 use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
 
