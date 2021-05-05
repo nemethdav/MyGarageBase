@@ -17,7 +17,7 @@
 
                             <x-alert/>
 
-                            <form novalidate action="{{ route('vehicle.update', $vehicle->id) }}" method="POST"
+                            <form action="{{ route('vehicle.update', $vehicle->id) }}" method="POST"
                                   enctype="multipart/form-data">
                                 @csrf
                                 @method('PATCH')
