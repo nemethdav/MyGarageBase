@@ -40,6 +40,7 @@
                                             <td width="50%" class="text-right"><span
                                                     class="text-muted">Fajtája:</span></td>
                                             <td width="50%" class="text-left">
+{{--                                                {{ $vehicle->vehicleType->vehicle_type }}--}}
                                                 @if ($vehicle->vehicle_type == 1)
                                                     Motorkerékpár
                                                 @elseif($vehicle->vehicle_type == 2)
@@ -99,11 +100,11 @@
                                                     class="text-muted">Vásárlás dátuma: </span></td>
                                             <td width="50%" class="text-left">{{ $vehicle->date_of_purchase }}</td>
                                         </tr>
-                                        @if ($vehicle->date_of_purchase != null)
+                                        @if ($vehicle->date_of_sale != null)
                                             <tr>
                                                 <td width="50%" class="text-right"><span
                                                         class="text-muted">Eladás dátuma: </span></td>
-                                                <td width="50%" class="text-left">{{ $vehicle->date_of_purchase }}</td>
+                                                <td width="50%" class="text-left">{{ $vehicle->date_of_sale }}</td>
                                             </tr>
                                         @endif
                                         </tbody>

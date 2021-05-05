@@ -17,7 +17,7 @@
 
                             <x-alert/>
 
-                            <form action="{{ route('vehicle.update', $vehicle->id) }}" method="POST"
+                            <form novalidate action="{{ route('vehicle.update', $vehicle->id) }}" method="POST"
                                   enctype="multipart/form-data">
                                 @csrf
                                 @method('PATCH')
@@ -50,7 +50,7 @@
                                     @foreach($vehicleTypes as $vehicleType)
                                         <option value="{{ $vehicleType->id }}"
                                         @if (old('vehicle_type') == null)
-                                            {{ $vehicleType->id == ($loop->index) + 1 ? 'selected' : '' }}
+                                            {{ $vehicleType->id == $vehicle->vehicle_type ? 'selected' : '' }}
                                             @else
                                             {{ old('vehicle_type') == $vehicleType->id ? 'selected' : '' }}
                                             @endif
