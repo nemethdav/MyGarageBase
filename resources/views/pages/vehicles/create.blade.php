@@ -17,7 +17,7 @@
 
                             <x-alert/>
 
-                            <form novalidate action="{{ route('vehicle.store') }}" method="POST"
+                            <form action="{{ route('vehicle.store') }}" method="POST"
                                   enctype="multipart/form-data">
                                 @csrf
                                 <img src="{{ asset('storage/imgs/vehicles/default.png') }}" width="100" alt="Jármű kép"
