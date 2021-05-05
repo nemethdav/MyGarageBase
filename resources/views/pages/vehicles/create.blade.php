@@ -31,7 +31,7 @@
                                         <div class="form-group">
                                             <input type="text" class="form-control" name="vehicleNickName"
                                                    id="vehicleNickName"
-                                                   placeholder="Jármű beceneve" value="{{ old('vehicleNickName') }}"/>
+                                                   placeholder="Jármű beceneve" value="{{ old('vehicleNickName') }}" required/>
                                         </div>
                                     </div>
                                 </div>

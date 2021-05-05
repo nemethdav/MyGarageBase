@@ -23,6 +23,7 @@ class VehicleCreateRequest extends FormRequest
      */
     public function rules() {
         return [
+            'vehicleNickName' => ['required'],
             'vehicle_type' => ['required', 'min:1', 'max:2'],
             'manufacturer' => ['required', 'min:3', 'max:255'],
             'type' => ['required', 'min:3', 'max:255'],
@@ -36,6 +37,7 @@ class VehicleCreateRequest extends FormRequest
 
     public function messages() {
         return [
+            'vehicleNickName.required' => 'A jármű becenevének megadása kötelező!',
             'vehicle_type.required' => 'A jármű típusának megadása közelező!',
             'vehicle_type.min' => 'A jármű típusa Motorkerékpár vagy Személygépjármű lehet!',
             'vehicle_type.max' => 'A jármű típusa Motorkerékpár vagy Személygépjármű lehet!',

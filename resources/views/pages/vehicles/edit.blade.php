@@ -39,7 +39,8 @@
                                             <input type="text" class="form-control" name="vehicleNickName"
                                                    id="vehicleNickName"
                                                    placeholder="Jármű beceneve"
-                                                   value="{{ old('vehicleNickName') == null ? $vehicle->vehicleNickName : old('vehicleNickName') }}"/>
+                                                   value="{{ old('vehicleNickName') == null ? $vehicle->vehicleNickName : old('vehicleNickName') }}"
+                                                   required/>
                                         </div>
                                     </div>
                                 </div>
