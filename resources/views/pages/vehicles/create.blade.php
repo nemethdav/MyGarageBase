@@ -26,7 +26,10 @@
                                 <input type="file" id="vehicle_image" name="vehicle_image" accept="image/*">
 
                                 <div class="row">
-                                    <label class="col-sm-4 col-form-label" for="vehicleNickName">Becenév</label>
+                                    <label class="col-sm-4 col-form-label" for="vehicleNickName">
+                                        Becenév
+                                        <span class="text-danger">*</span>
+                                    </label>
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <input type="text" class="form-control" name="vehicleNickName"
@@ -47,7 +50,10 @@
                                 </select>
 
                                 <div class="row">
-                                    <label class="col-sm-4 col-form-label" for="manufacturer">Gyártmány</label>
+                                    <label class="col-sm-4 col-form-label" for="manufacturer">
+                                        Gyártmány
+                                        <span class="text-danger">*</span>
+                                    </label>
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <input type="text" class="form-control" name="manufacturer"
@@ -59,7 +65,10 @@
                                 </div>
 
                                 <div class="row">
-                                    <label class="col-sm-4 col-form-label" for="type">Típus</label>
+                                    <label class="col-sm-4 col-form-label" for="type">
+                                        Típus
+                                        <span class="text-danger">*</span>
+                                    </label>
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <input type="text" class="form-control" name="type" id="type"
@@ -70,8 +79,9 @@
                                 </div>
 
                                 <div class="row">
-                                    <label class="col-sm-4 col-form-label" for="license_plate_number">Forgalmi
-                                        rendszám</label>
+                                    <label class="col-sm-4 col-form-label" for="license_plate_number">
+                                        Forgalmi rendszám
+                                    </label>
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <input type="text" class="form-control" name="license_plate_number"
@@ -83,7 +93,10 @@
                                 </div>
 
                                 <div class="row">
-                                    <label class="col-sm-4 col-form-label" for="year_of_manufacture">Gyártási év</label>
+                                    <label class="col-sm-4 col-form-label" for="year_of_manufacture">
+                                        Gyártási év
+                                        <span class="text-danger">*</span>
+                                    </label>
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <input type="number" class="form-control" name="year_of_manufacture"
@@ -127,8 +140,10 @@
                                 </div>
 
                                 <div class="row">
-                                    <label class="col-sm-4 col-form-label"
-                                           for="cylinder_capacity">Hengerűrtartalom</label>
+                                    <label class="col-sm-4 col-form-label" for="cylinder_capacity">
+                                        Hengerűrtartalom
+                                        <span class="text-danger">*</span>
+                                    </label>
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <input type="number" class="form-control" name="cylinder_capacity"
@@ -141,8 +156,10 @@
 
                                 <div id="calc">
                                     <div class="row">
-                                        <label class="col-sm-4 col-form-label" for="performance_kw">Teljesítmény
-                                            (kW)</label>
+                                        <label class="col-sm-4 col-form-label" for="performance_kw">
+                                            Teljesítmény (kW)
+                                            <span class="text-danger">*</span>
+                                        </label>
                                         <div class="col-sm-8">
                                             <div class="form-group">
                                                 <input type="number" class="form-control" name="performance_kw"
@@ -159,14 +176,17 @@
                                     </div>
 
                                     <div class="row">
-                                        <label class="col-sm-4 col-form-label" for="performance_le">Teljesítmény
-                                            (LE)</label>
+                                        <label class="col-sm-4 col-form-label" for="performance_le">
+                                            Teljesítmény (LE)
+                                            <span class="text-danger">*</span>
+                                        </label>
                                         <div class="col-sm-8">
                                             <div class="form-group" id="_performance_le">
                                                 <input type="number" class="form-control" name="performance_le"
                                                        id="performance_le"
                                                        placeholder="Jármű teljesítménye LE-ben megadva" min="0" required
                                                        value="{{ old('performance_le') }}"
+                                                       readonly
                                                        v-model="performance_le"/>
                                             </div>
                                         </div>
@@ -174,8 +194,9 @@
                                 </div>
 
                                 <div class="row">
-                                    <label class="col-sm-4 col-form-label" for="validity_of_technical_Examination">Műszaki
-                                        vizsga érvényessége</label>
+                                    <label class="col-sm-4 col-form-label" for="validity_of_technical_Examination">
+                                        Műszaki vizsga érvényessége
+                                    </label>
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <input type="date" class="form-control"
@@ -188,8 +209,9 @@
                                 </div>
 
                                 <div class="row">
-                                    <label class="col-sm-4 col-form-label" for="date_of_purchase">Vásárlás
-                                        dátuma</label>
+                                    <label class="col-sm-4 col-form-label" for="date_of_purchase">
+                                        Vásárlás dátuma
+                                    </label>
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <input type="date" class="form-control" name="date_of_purchase"
@@ -201,7 +223,9 @@
                                 </div>
 
                                 <div class="row">
-                                    <label class="col-sm-4 col-form-label" for="date_of_sale">Eladás dátuma</label>
+                                    <label class="col-sm-4 col-form-label" for="date_of_sale">
+                                        Eladás dátuma
+                                    </label>
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <input type="date" class="form-control" name="date_of_sale"
@@ -211,6 +235,8 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                @include('pages.vehicles.star')
 
                                 <div class="form-group row">
                                     <div class="col-sm-12">
