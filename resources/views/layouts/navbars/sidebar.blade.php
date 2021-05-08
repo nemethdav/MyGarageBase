@@ -12,12 +12,12 @@
     </div>
     <div class="sidebar-wrapper">
         <ul class="nav">
-{{--            <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">--}}
-{{--                <a class="nav-link" href="{{ route('home') }}">--}}
-{{--                    <i class="material-icons">dashboard</i>--}}
-{{--                    <p>{{ __('Főképernyő') }}</p>--}}
-{{--                </a>--}}
-{{--            </li>--}}
+            {{--            <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">--}}
+            {{--                <a class="nav-link" href="{{ route('home') }}">--}}
+            {{--                    <i class="material-icons">dashboard</i>--}}
+            {{--                    <p>{{ __('Főképernyő') }}</p>--}}
+            {{--                </a>--}}
+            {{--            </li>--}}
             <li class="nav-item {{ ($activePage == 'profile') ? ' active' : '' }}">
                 <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="true">
                     <i class="material-icons">settings</i>
@@ -49,8 +49,7 @@
                     <ul class="nav">
                         <li class="nav-item{{ $activePage == 'createVehicle' ? ' active' : '' }}">
                             <a class="nav-link" href="{{ route('vehicle.create') }}">
-                                <i class="material-icons">add</i>
-                                <i class="material-icons">directions_car</i>
+                                <img src="{{ asset('storage/imgs/newVehicle.png') }}" width="30px" style="float: left" class="mr-3">
                                 <span class="sidebar-normal">{{ __('Jármű hozzáadása') }} </span>
                             </a>
                         </li>
@@ -64,18 +63,46 @@
                 </div>
             </li>
 
-{{--            <li class="nav-item{{ $activePage == 'table' ? ' active' : '' }}">--}}
-{{--                <a class="nav-link" href="{{ route('table') }}">--}}
-{{--                    <i class="material-icons">content_paste</i>--}}
-{{--                    <p>{{ __('Table List') }}</p>--}}
-{{--                </a>--}}
-{{--            </li>--}}
-{{--            <li class="nav-item{{ $activePage == 'notifications' ? ' active' : '' }}">--}}
-{{--                <a class="nav-link" href="{{ route('notifications') }}">--}}
-{{--                    <i class="material-icons">notifications</i>--}}
-{{--                    <p>{{ __('Notifications') }}</p>--}}
-{{--                </a>--}}
-{{--            </li>--}}
+            <li class="nav-item {{ ($activePage == 'createRefueling' || $activePage == 'editRefueling' ||
+                $activePage == 'refuelings' || $activePage == 'showRefueling') ? ' active' : '' }}">
+                <a class="nav-link" data-toggle="collapse" href="#vehicles" aria-expanded="true">
+{{--                    <i class="material-icons">directions_car</i>--}}
+                    <img src="{{ asset('storage/imgs/fuelStation.png') }}" width="30px" style="float: left" class="mr-3">
+                    <p>{{ __('Tankolások') }}
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse show" id="refuelings">
+                    <ul class="nav">
+                        <li class="nav-item{{ $activePage == 'createRefueling' ? ' active' : '' }}">
+                            <a class="nav-link" href="{{ route('refueling.create') }}">
+                                <i class="material-icons">add</i>
+                                <img src="{{ asset('storage/imgs/fuelStation.png') }}" width="20px" style="float: left" class="mr-3">
+                                <span class="sidebar-normal">{{ __('Új tankolás') }} </span>
+                            </a>
+                        </li>
+                        <li class="nav-item{{ $activePage == 'refuelings' ? ' active' : '' }}">
+                            <a class="nav-link" href="{{ route('refueling.index') }}">
+                                <i class="material-icons">directions_car</i>
+                                <span class="sidebar-normal">{{ __('Tankolásaim') }} </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            {{--            <li class="nav-item{{ $activePage == 'table' ? ' active' : '' }}">--}}
+            {{--                <a class="nav-link" href="{{ route('table') }}">--}}
+            {{--                    <i class="material-icons">content_paste</i>--}}
+            {{--                    <p>{{ __('Table List') }}</p>--}}
+            {{--                </a>--}}
+            {{--            </li>--}}
+            {{--            <li class="nav-item{{ $activePage == 'notifications' ? ' active' : '' }}">--}}
+            {{--                <a class="nav-link" href="{{ route('notifications') }}">--}}
+            {{--                    <i class="material-icons">notifications</i>--}}
+            {{--                    <p>{{ __('Notifications') }}</p>--}}
+            {{--                </a>--}}
+            {{--            </li>--}}
             <li class="nav-item mt-5">
                 <a class="nav-link text-white btn-danger" href="{{ route('logout') }}"
                    onclick="event.preventDefault();document.getElementById('logout-form').submit();">

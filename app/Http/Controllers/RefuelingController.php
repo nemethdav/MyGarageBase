@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\VehicleCreateRequest;
+use App\Http\Requests\RefuelingCreateRequest;
 use App\Models\Refueling;
-use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 
 class RefuelingController extends Controller
 {
@@ -15,8 +15,9 @@ class RefuelingController extends Controller
      */
     public function index()
     {
-        $refuelings = auth()->user()->refuelings()->paginate(10);
-        return $refuelings;
+        Paginator::useBootstrap();
+        $refuelings = auth()->user()->refuelings()->orderBy('date_time')->paginate(10);
+        return view('pages.refuelings.index', compact('refuelings'));
     }
 
     /**
@@ -26,82 +27,95 @@ class RefuelingController extends Controller
      */
     public function create()
     {
-        //
+        $user_vehicles = auth()->user()->vehicles()->get();
+//        return $user_vehicles;
+        return view('pages.refuelings.create', compact('user_vehicles'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Http\Requests\VehicleCreateRequest  $request
+     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Requests\RefuelingCreateRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(VehicleCreateRequest $request)
+    public function store(RefuelingCreateRequest $request)
     {
         auth()->user()->refuelings()->create([
-            'vehicle_id'=>$request->vehicle_id,
-            'user_id' => auth()->user()-id,
-            'date_time'=>$request->date_time,
-            'km_operating_hour'=>$request->km_operating_hour,
-            'trip1'=>$request->trip1,
-            'trip2'=>$request->trip2,
-            'refueled_quantity'=>$request->refueled_quantity,
-            'fuel_cost'=>$request->fuel_cost,
-            'refuelling_cost'=>$request->refuelling_cost,
-            'average_consumption'=>$request->average_consumption
+            'vehicle_id' => $request->vehicle_id,
+            'user_id' => auth()->user()->id,
+            'date_time' => $request->date_time,
+            'km_operating_hour' => $request->km_operating_hour,
+            'trip1' => $request->trip1,
+            'trip2' => $request->trip2,
+            'refueled_quantity' => $request->refueled_quantity,
+            'discount' => $request->discount,
+            'fuel_cost' => $request->fuel_cost,
+            'refuelling_cost' => $request->refuelling_cost,
+            'average_consumption' => $request->average_consumption,
+            'fuel_type' => $request->fuel_type
         ]);
+
+        return redirect(route('refueling.index'))->with('message', 'A tankolás sikeresen rögzítve!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Refueling  $refueling
+     * @param \App\Models\Refueling $refueling
      * @return \Illuminate\Http\Response
      */
     public function show(Refueling $refueling)
     {
-        //
+        return view('pages.refuelings.show', compact('refueling'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Refueling  $refueling
+     * @param \App\Models\Refueling $refueling
      * @return \Illuminate\Http\Response
      */
     public function edit(Refueling $refueling)
     {
-        //
+        define('HTML_DATETIME_LOCAL', "Y-m-d\TH:i");
+        $php_timestamp = strtotime($refueling->date_time);
+        $html_datetime_string = date(HTML_DATETIME_LOCAL, $php_timestamp);
+
+        $user_vehicles = auth()->user()->vehicles()->get();
+        return view('pages.refuelings.edit', compact(['refueling', 'user_vehicles', 'html_datetime_string']));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Http\Requests\VehicleCreateRequest  $request
-     * @param  \App\Models\Refueling  $refueling
+     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Requests\RefuelingCreateRequest $request
+     * @param \App\Models\Refueling $refueling
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Refueling $refueling)
+    public function update(RefuelingCreateRequest $request, Refueling $refueling)
     {
         $refueling->update([
-            'vehicle_id'=>$request->vehicle_id,
-            'user_id' => auth()->user()-id,
-            'date_time'=>$request->date_time,
-            'km_operating_hour'=>$request->km_operating_hour,
-            'trip1'=>$request->trip1,
-            'trip2'=>$request->trip2,
-            'refueled_quantity'=>$request->refueled_quantity,
-            'fuel_cost'=>$request->fuel_cost,
-            'refuelling_cost'=>$request->refuelling_cost,
-            'average_consumption'=>$request->average_consumption
+            'vehicle_id' => $request->vehicle_id,
+            'user_id' => auth()->user()->id,
+            'date_time' => $request->date_time,
+            'km_operating_hour' => $request->km_operating_hour,
+            'trip1' => $request->trip1,
+            'trip2' => $request->trip2,
+            'refueled_quantity' => $request->refueled_quantity,
+            'discount' => $request->discount,
+            'fuel_cost' => $request->fuel_cost,
+            'refuelling_cost' => $request->refuelling_cost,
+            'average_consumption' => $request->average_consumption,
+            'fuel_type' => $request->fuel_type
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Refueling  $refueling
+     * @param \App\Models\Refueling $refueling
      * @return \Illuminate\Http\Response
      */
     public function destroy(Refueling $refueling)
