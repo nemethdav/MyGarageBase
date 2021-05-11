@@ -17,7 +17,7 @@
 
                             <x-alert/>
 
-                            <form novalidate action="{{ route('refueling.store') }}" method="POST">
+                            <form action="{{ route('refueling.store') }}" method="POST">
                                 @csrf
 
                                 <select class="custom-select" name="vehicle_id" id="vehicle_id">
