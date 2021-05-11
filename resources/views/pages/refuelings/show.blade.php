@@ -7,7 +7,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-12 col-lg-10">
                     <div class="card">
-                        <div class="card-header card-header-warning">
+                        <div class="card-header card-header-info">
                             <h3 class="card-title d-flex justify-content-between">
                                 {{ $refueling->date_time }} tankolás részletei
                             </h3>

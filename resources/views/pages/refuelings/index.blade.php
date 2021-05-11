@@ -47,7 +47,8 @@
                                         <td>{{ ($refueling->id) }}</td>
                                         <td>{{ $refueling->vehicle->vehicleNickName }}</td>
                                         <td>{{ $refueling->date_time }}</td>
-                                        <td>{{ number_format($refueling->km_operating_hour, 0, ',', ' ') }} km/üzemóra</td>
+                                        <td>{{ number_format($refueling->km_operating_hour, 0, ',', ' ') }}km/üzemóra
+                                        </td>
                                         <td>{{ $refueling->trip1 }} km/üzemóróra</td>
                                         <td>{{ $refueling->average_consumption }} l/100km/üzemóra</td>
                                         <td>{{ number_format($refueling->refuelling_cost, 0, ',', ' ') }} Ft</td>
@@ -60,7 +61,8 @@
                                                 </a>
                                             </span>
                                             <span>
-                                                <a href="{{ route('refueling.edit', $refueling->id) }}" rel="tooltip" title="Szerkesztés"
+                                                <a href="{{ route('refueling.edit', $refueling->id) }}" rel="tooltip"
+                                                   title="Szerkesztés"
                                                    class="btn btn-warning btn-link btn-sm">
                                                     <i class="material-icons">edit</i>
                                                 </a>
@@ -101,8 +103,6 @@
                 </div>
             </div>
 
-                </div>
-            </div>
         </div>
     </div>
 @endsection
