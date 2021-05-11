@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RefuelingController;
+use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +19,32 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Auth::routes();
+
+Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home')->middleware('auth');
+
+Route::group(['middleware' => 'auth'], function () {
+
+	Route::get('table-list', function () {
+		return view('pages.table_list');
+	})->name('table');
+
+	Route::get('notifications', function () {
+		return view('pages.notifications');
+	})->name('notifications');
+});
+
+Route::group(['middleware' => 'auth'], function () {
+	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
+	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
+	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
+	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
+    Route::put('profile/avatar', [ProfileController::class, 'avatar'])->name('profile.avatar');
+});
+
+Route::resource('/vehicle', VehicleController::class)->middleware('auth');
+Route::resource('/refueling', RefuelingController::class)->middleware('auth');
