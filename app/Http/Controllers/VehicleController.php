@@ -158,7 +158,7 @@ class VehicleController extends Controller
     {
         try {
             $vehicle->delete();
-            return redirect()->back()->with('message', 'jármű sikeresen törölve');
+            return redirect()->back()->with('message', 'A jármű sikeresen törölve');
         } catch (\Exception $exception) {
             return redirect()->back()->with('error', 'A jármű törlése közbe hiba lépett fel. Hibaüzenet: ' . $exception);
         }

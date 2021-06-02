@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MotorwayVignetteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RefuelingController;
 use App\Http\Controllers\VehicleController;
@@ -48,3 +49,4 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::resource('/vehicle', VehicleController::class)->middleware('auth');
 Route::resource('/refueling', RefuelingController::class)->middleware('auth');
+Route::resource('/motorwayVignette', MotorwayVignetteController::class)->middleware('auth');

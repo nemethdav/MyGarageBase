@@ -49,7 +49,8 @@
                     <ul class="nav">
                         <li class="nav-item{{ $activePage == 'createVehicle' ? ' active' : '' }}">
                             <a class="nav-link" href="{{ route('vehicle.create') }}">
-                                <img src="{{ asset('storage/imgs/newVehicle.png') }}" width="30px" style="float: left" class="mr-3">
+                                <img src="{{ asset('storage/imgs/newVehicle.png') }}" width="30px" style="float: left"
+                                     class="mr-3">
                                 <span class="sidebar-normal">{{ __('Jármű hozzáadása') }} </span>
                             </a>
                         </li>
@@ -65,9 +66,9 @@
 
             <li class="nav-item {{ ($activePage == 'createRefueling' || $activePage == 'editRefueling' ||
                 $activePage == 'refuelings' || $activePage == 'showRefueling') ? ' active' : '' }}">
-                <a class="nav-link" data-toggle="collapse" href="#vehicles" aria-expanded="true">
-{{--                    <i class="material-icons">directions_car</i>--}}
-                    <img src="{{ asset('storage/imgs/fuelStation.png') }}" width="30px" style="float: left" class="mr-3">
+                <a class="nav-link" data-toggle="collapse" href="#refuelings" aria-expanded="true">
+                    <img src="{{ asset('storage/imgs/fuelStation.png') }}" width="30px" style="float: left"
+                         class="mr-3">
                     <p>{{ __('Tankolások') }}
                         <b class="caret"></b>
                     </p>
@@ -77,18 +78,29 @@
                         <li class="nav-item{{ $activePage == 'createRefueling' ? ' active' : '' }}">
                             <a class="nav-link" href="{{ route('refueling.create') }}">
                                 <i class="material-icons">add</i>
-                                <img src="{{ asset('storage/imgs/fuelStation.png') }}" width="20px" style="float: left" class="mr-3">
+                                <img src="{{ asset('storage/imgs/fuelStation.png') }}" width="20px" style="float: left"
+                                     class="mr-3">
                                 <span class="sidebar-normal">{{ __('Új tankolás') }} </span>
                             </a>
                         </li>
                         <li class="nav-item{{ $activePage == 'refuelings' ? ' active' : '' }}">
                             <a class="nav-link" href="{{ route('refueling.index') }}">
-                                <i class="material-icons">directions_car</i>
-                                <span class="sidebar-normal">{{ __('Tankolásaim') }} </span>
+                                <img src="{{ asset('storage/imgs/fuelStation.png') }}" width="20px" style="float: left"
+                                     class="mr-3">
+                                <span class="sidebar-normal">{{ __('Tankolások') }} </span>
                             </a>
                         </li>
                     </ul>
                 </div>
+            </li>
+
+            <li class="nav-item{{ $activePage == 'motorwayVignettes' || $activePage == 'createMotorwayVignette' ||
+                    $activePage == 'editMotorwayVignette' || $activePage == 'showMotorwayVignette' ? ' active' : '' }}">
+                <a class="nav-link" href="{{ route('motorwayVignette.index') }}">
+                    <img src="{{ asset('storage/imgs/motorway_png.png') }}" width="30px" style="float: left"
+                         class="mr-3">
+                    <p>{{ __('Autópálya matricák') }}</p>
+                </a>
             </li>
 
             {{--            <li class="nav-item{{ $activePage == 'table' ? ' active' : '' }}">--}}

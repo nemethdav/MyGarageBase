@@ -26,4 +26,8 @@ class Vehicle extends Model
     public function refuelings(){
         return $this->hasMany(Refueling::class);
     }
+
+    public function motorwayVignettes(){
+        return $this->hasMany(MotorwayVignette::class);
+    }
 }

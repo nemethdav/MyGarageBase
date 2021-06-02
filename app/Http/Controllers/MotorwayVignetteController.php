@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MotorwayVignetteCreateRequest;
 use App\Models\MotorwayVignette;
-use Illuminate\Http\Request;
+use DateTime;
+use Illuminate\Pagination\Paginator;
 
 class MotorwayVignetteController extends Controller
 {
+
+    private const IMAGE_DESTINATION = 'storage/imgs/motorwayVignettes/';
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,9 @@ class MotorwayVignetteController extends Controller
      */
     public function index()
     {
-        //
+        Paginator::useBootstrap();
+        $motorwayVignettes = auth()->user()->motorwayVignettes()->paginate(10);
+        return view('pages.motorvayVignettes.index', compact('motorwayVignettes'));
     }
 
     /**
@@ -24,62 +31,142 @@ class MotorwayVignetteController extends Controller
      */
     public function create()
     {
-        //
+        $user_vehicles = auth()->user()->vehicles()->get();
+        return view('pages.motorvayVignettes.create', compact('user_vehicles'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+//     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\MotorwayVignetteCreateRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MotorwayVignetteCreateRequest $request)
     {
-        //
+        $image_name = null;
+        if (($file = $request->file('image')) != null) {
+            $image_name = uniqid() . "." . $request->image->getClientOriginalExtension();
+            //Upload file
+            $move = $file->move(public_path(self::IMAGE_DESTINATION), $image_name);
+        }
+
+        auth()->user()->motorwayVignettes()->create([
+            'vehicle_id' => $request->vehicle_id,
+            'user_id' => auth()->user()->id,
+            'type' => $request->type,
+            'category' => $request->category,
+            'location' => $request->location,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'date_of_purchase' => $request->date_of_purchase,
+            'price' => $request->price,
+            'image' => $image_name
+        ]);
+
+        return redirect(route('motorwayVignette.index'))->with('message', 'Az autópályamatrica sikeresen rögzítve!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\MotorwayVignette  $motorwayVignette
+     * @param \App\Models\MotorwayVignette $motorwayVignette
      * @return \Illuminate\Http\Response
      */
     public function show(MotorwayVignette $motorwayVignette)
     {
-        //
+        try {
+            $end_date = $motorwayVignette->end_date;
+            $now = date("Y-m-d H:i:s");
+            $datetime1 = new DateTime($end_date);
+            $datetime2 = new DateTime($now);
+            $interval = $datetime1->diff($datetime2);
+            $days = $interval->format('%a');
+            return view('pages.motorvayVignettes.show', compact(['motorwayVignette', 'days']));
+        } catch (\Exception $exception) {
+            return redirect()->back()->with('error', 'Hiba a hátralévő napok meghatározásakor! Hiba:' . $exception->getMessage());
+        }
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\MotorwayVignette  $motorwayVignette
+     * @param \App\Models\MotorwayVignette $motorwayVignette
      * @return \Illuminate\Http\Response
      */
     public function edit(MotorwayVignette $motorwayVignette)
     {
-        //
+        define('HTML_DATETIME_LOCAL', "Y-m-d\TH:i");
+
+        $php_timestamp = strtotime($motorwayVignette->start_date);
+        $start_date = date(HTML_DATETIME_LOCAL, $php_timestamp);
+
+        $php_timestamp = strtotime($motorwayVignette->end_date);
+        $end_date = date(HTML_DATETIME_LOCAL, $php_timestamp);
+
+        $php_timestamp = strtotime($motorwayVignette->date_of_purchase);
+        $date_of_purchase = date(HTML_DATETIME_LOCAL, $php_timestamp);
+
+        $user_vehicles = auth()->user()->vehicles()->get();
+        return view('pages.motorvayVignettes.edit', compact(['motorwayVignette', 'user_vehicles', 'start_date', 'end_date', 'date_of_purchase']));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\MotorwayVignette  $motorwayVignette
+//     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\MotorwayVignetteCreateRequest $request
+     * @param \App\Models\MotorwayVignette $motorwayVignette
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MotorwayVignette $motorwayVignette)
+    public function update(MotorwayVignetteCreateRequest $request, MotorwayVignette $motorwayVignette)
     {
-        //
+        $imageName = $motorwayVignette->image;
+        if (($file = $request->file('image')) != null) {
+            $imageName = uniqid() . "." . $request->image->getClientOriginalExtension();
+            //Upload file
+            $move = $file->move(public_path(self::IMAGE_DESTINATION), $imageName);
+
+            $oldImage = $motorwayVignette->image;
+            if ($oldImage != null)
+                unlink(self::IMAGE_DESTINATION . $oldImage);
+        }
+
+        $motorwayVignette->update([
+            'vehicle_id' => $request->vehicle_id,
+            'user_id' => auth()->user()->id,
+            'type' => $request->type,
+            'category' => $request->category,
+            'location' => $request->location,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'date_of_purchase' => $request->date_of_purchase,
+            'price' => $request->price,
+            'image' => $imageName
+        ]);
+
+        return redirect(route('motorwayVignette.index'))->with('message', 'Az autópályamatrica sikeresen frissítve!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\MotorwayVignette  $motorwayVignette
+     * @param \App\Models\MotorwayVignette $motorwayVignette
      * @return \Illuminate\Http\Response
      */
     public function destroy(MotorwayVignette $motorwayVignette)
     {
-        //
+        try {
+            $motorwayVignette->delete();
+
+            $deleteImage = $motorwayVignette->image;
+            if ($deleteImage != null)
+                unlink(self::IMAGE_DESTINATION . $deleteImage);
+
+            return redirect()->back()->with('message', 'A kiválasztott autópályamatrica sikeresen törölve!');
+        } catch (Exception $exception) {
+            return redirect()->back()->with('error', 'A törlés közben hiba lépett fel. Hibaüzenet: ' . $exception);
+        }
     }
 }

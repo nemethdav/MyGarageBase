@@ -257,7 +257,7 @@
                                     </div>
                                 </div>
 
-                                @include('pages.vehicles.star')
+                                @include('layouts.star')
 
                                 <div class="form-group row">
                                     <div class="col-sm-12">
