@@ -26,7 +26,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();
 
-Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home')->middleware('auth');
+//Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -45,8 +45,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
     Route::put('profile/avatar', [ProfileController::class, 'avatar'])->name('profile.avatar');
-});
 
-Route::resource('/vehicle', VehicleController::class)->middleware('auth');
-Route::resource('/refueling', RefuelingController::class)->middleware('auth');
-Route::resource('/motorwayVignette', MotorwayVignetteController::class)->middleware('auth');
+    Route::resource('/vehicle', VehicleController::class);
+    Route::resource('/refueling', RefuelingController::class);
+    Route::resource('/motorwayVignette', MotorwayVignetteController::class);
+});

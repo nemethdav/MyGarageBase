@@ -75,6 +75,8 @@ class MotorwayVignetteController extends Controller
      */
     public function show(MotorwayVignette $motorwayVignette)
     {
+        $this->abortUnless($motorwayVignette);
+
         try {
             $end_date = $motorwayVignette->end_date;
             $now = date("Y-m-d H:i:s");
@@ -97,6 +99,8 @@ class MotorwayVignetteController extends Controller
      */
     public function edit(MotorwayVignette $motorwayVignette)
     {
+        $this->abortUnless($motorwayVignette);
+
         define('HTML_DATETIME_LOCAL', "Y-m-d\TH:i");
 
         $php_timestamp = strtotime($motorwayVignette->start_date);
@@ -122,6 +126,8 @@ class MotorwayVignetteController extends Controller
      */
     public function update(MotorwayVignetteCreateRequest $request, MotorwayVignette $motorwayVignette)
     {
+        $this->abortUnless($motorwayVignette);
+
         $imageName = $motorwayVignette->image;
         if (($file = $request->file('image')) != null) {
             $imageName = uniqid() . "." . $request->image->getClientOriginalExtension();
@@ -157,6 +163,8 @@ class MotorwayVignetteController extends Controller
      */
     public function destroy(MotorwayVignette $motorwayVignette)
     {
+        $this->abortUnless($motorwayVignette);
+
         try {
             $motorwayVignette->delete();
 
@@ -168,5 +176,9 @@ class MotorwayVignetteController extends Controller
         } catch (Exception $exception) {
             return redirect()->back()->with('error', 'A törlés közben hiba lépett fel. Hibaüzenet: ' . $exception);
         }
+    }
+
+    public function abortUnless($motorwayVignette){
+        abort_unless(auth()->user()->owns($motorwayVignette), 403);
     }
 }

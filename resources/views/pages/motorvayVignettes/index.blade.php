@@ -23,13 +23,13 @@
                                 </a>
                             </h3>
                         </div>
-                        <div class="card-body text-center">
+                        <div class="card-body table-responsive">
 
                             <x-alert/>
 
                             <table class="table table-hover">
                                 <thead class="text-warning text-center">
-                                <th width="5%">ID</th>
+                                <th width="5%">Sorszám</th>
                                 <th>Jármű beceneve</th>
                                 <th>Matrica típusa</th>
                                 <th>Érvényességének helye</th>
@@ -41,8 +41,7 @@
                                 <tbody class="text-center">
                                 @forelse($motorwayVignettes as $motorwayVignette)
                                     <tr>
-                                        {{--                                    <td>{{ ($loop->index) + 1 }}</td>--}}
-                                        <td>{{ $motorwayVignette->id }}</td>
+                                        <td>{{ (($loop->index) + 1) + ($motorwayVignettes->currentPage() * 10 - 10) }}</td>
                                         <td>{{ $motorwayVignette->vehicle->vehicleNickName }}</td>
                                         <td>{{ $motorwayVignette->type }}</td>
                                         <td>{{ $motorwayVignette->location }}</td>
@@ -58,14 +57,16 @@
                                         <td>{{ number_format($motorwayVignette->price, 0, ',', ' ') }} Ft</td>
                                         <td>
                                             <span>
-                                                <a href="{{ route("motorwayVignette.show", $motorwayVignette->id) }}" rel="tooltip"
+                                                <a href="{{ route("motorwayVignette.show", $motorwayVignette->id) }}"
+                                                   rel="tooltip"
                                                    title="Részletek"
                                                    class="btn btn-success btn-link btn-sm">
                                                     <i class="material-icons">launch</i>
                                                 </a>
                                             </span>
                                             <span>
-                                                <a href="{{ route('motorwayVignette.edit', $motorwayVignette->id) }}" rel="tooltip"
+                                                <a href="{{ route('motorwayVignette.edit', $motorwayVignette->id) }}"
+                                                   rel="tooltip"
                                                    title="Szerkesztés"
                                                    class="btn btn-warning btn-link btn-sm">
                                                     <i class="material-icons">edit</i>
@@ -77,10 +78,11 @@
                                                       document.getElementById('delete{{ $motorwayVignette->id }}').submit()
                                                       }">
                                                 <i class="material-icons">close</i>
-                                                <form action="{{ route('motorwayVignette.destroy', $motorwayVignette->id) }}"
-                                                      method="POST"
-                                                      style="display: none"
-                                                      id={{ 'delete'.$motorwayVignette->id }}>
+                                                <form
+                                                    action="{{ route('motorwayVignette.destroy', $motorwayVignette->id) }}"
+                                                    method="POST"
+                                                    style="display: none"
+                                                    id={{ 'delete'.$motorwayVignette->id }}>
                                                     @csrf
                                                     @method('DELETE')
                                                     </form>
@@ -90,7 +92,8 @@
                                 @empty
                                     <tr>
                                         <td colspan="8">
-                                            Még egy autópályamatrcája sincs rögzítve! <a href="{{ route('motorwayVignette.create') }}">Ide
+                                            Még egy autópályamatrcája sincs rögzítve! <a
+                                                href="{{ route('motorwayVignette.create') }}">Ide
                                                 kattintva tud rögzíteni egyet!</a>
                                         </td>
                                     </tr>

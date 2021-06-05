@@ -44,6 +44,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function owns($thing){ //$this = vehicle/refueling/motorwayVignette
+        return (auth()->user()->id == $thing->user_id);
+    }
+
     public function vehicles(){
         return $this->hasMany(Vehicle::class);
     }
