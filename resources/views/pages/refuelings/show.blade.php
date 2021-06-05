@@ -66,7 +66,7 @@
                                         <tr>
                                             <td width="50%" class="text-right"><span
                                                     class="text-muted">Kedvezmény:</span></td>
-                                            <td width="50%" class="text-left">{{ $refueling->discount }} Ft/liter</td>
+                                            <td width="50%" class="text-left">{{ $refueling->discount }} Ft</td>
                                         </tr>
                                         <tr>
                                             <td width="50%" class="text-right"><span
@@ -89,6 +89,15 @@
                                         @endif
                                         </tbody>
                                     </table>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p class="text-warning text-muted text-center">
+                                            A jármű által jelzett és a program által számolt átlagfogyasztás
+                                            kismértékben eltérhet.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
 

@@ -20,15 +20,21 @@
                             <form action="{{ route('refueling.store') }}" method="POST">
                                 @csrf
 
-                                <select class="custom-select" name="vehicle_id" id="vehicle_id">
-                                    <option>Jármű kiválasztása</option>
-                                    @foreach($user_vehicles as $vehicle)
-                                        <option value="{{ $vehicle->id }}"
-                                            {{ old('vehicle_id') == $vehicle->id ? 'selected' : '' }}>
-                                            {{ $vehicle->vehicleNickName }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                <div class="row">
+                                    <label class="col-sm-4 col-form-label" for="vehicle_id">
+                                        Jármű kiválasztása
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <select class="custom-select col-sm-8" name="vehicle_id" id="vehicle_id" required>
+                                        <option value="null">Járművek</option>
+                                        @foreach($user_vehicles as $vehicle)
+                                            <option value="{{ $vehicle->id }}"
+                                                {{ old('vehicle_id') == $vehicle->id ? 'selected' : '' }}>
+                                                {{ $vehicle->vehicleNickName }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
                                 <div class="row">
                                     <label class="col-sm-4 col-form-label" for="date_time">
@@ -97,7 +103,7 @@
 
                                     <div class="row">
                                         <label class="col-sm-4 col-form-label" for="refueled_quantity">
-                                            Tankolt üzemanyag mennyiség
+                                            Tankolt üzemanyag mennyiség (l)
                                             <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-sm-8">
@@ -118,7 +124,7 @@
 
                                     <div class="row">
                                         <label class="col-sm-4 col-form-label" for="average_consumption">
-                                            Átlagfogyasztás
+                                            Átlagfogyasztás (l)
                                             <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-sm-8">
@@ -138,7 +144,7 @@
 
                                     <div class="row">
                                         <label class="col-sm-4 col-form-label" for="fuel_cost">
-                                            Üzemanyag egységára
+                                            Üzemanyag egységára (Ft):
                                             <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-sm-8">
@@ -158,7 +164,7 @@
 
                                     <div class="row">
                                         <label class="col-sm-4 col-form-label" for="discount">
-                                            Kedvezmény:
+                                            Kedvezmény (Ft):
                                         </label>
                                         <div class="col-sm-8">
                                             <div class="form-group">
@@ -178,7 +184,7 @@
 
                                     <div class="row">
                                         <label class="col-sm-4 col-form-label" for="refuelling_cost">
-                                            Tankolás költsége
+                                            Tankolás költsége (Ft):
                                             <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-sm-8">

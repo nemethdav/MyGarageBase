@@ -10,7 +10,6 @@ use Illuminate\Pagination\Paginator;
 
 class VehicleController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -84,7 +83,8 @@ class VehicleController extends Controller
      */
     public function show(Vehicle $vehicle)
     {
-//        $vehicleType = $vehicle->vehicleType()->vehicle_type;
+        $this->abortUnless($vehicle);
+
         return view('pages.vehicles.show', compact(["vehicle"]));
     }
 
@@ -96,6 +96,8 @@ class VehicleController extends Controller
      */
     public function edit(Vehicle $vehicle)
     {
+        $this->abortUnless($vehicle);
+
         $vehicleTypes = vehicleType::all();
         return view('pages.vehicles.edit', compact(['vehicle', 'vehicleTypes']));
     }
@@ -110,6 +112,8 @@ class VehicleController extends Controller
      */
     public function update(VehicleCreateRequest $request, Vehicle $vehicle)
     {
+        $this->abortUnless($vehicle);
+
         $image_name = null;
         $dest = 'storage/imgs/vehicles/'; //Image Directory
 
@@ -156,11 +160,17 @@ class VehicleController extends Controller
      */
     public function destroy(Vehicle $vehicle)
     {
+        $this->abortUnless($vehicle);
+
         try {
             $vehicle->delete();
-            return redirect()->back()->with('message', 'jármű sikeresen törölve');
+            return redirect()->back()->with('message', 'A jármű sikeresen törölve');
         } catch (\Exception $exception) {
             return redirect()->back()->with('error', 'A jármű törlése közbe hiba lépett fel. Hibaüzenet: ' . $exception);
         }
+    }
+
+    public function abortUnless($vehicle){
+        abort_unless(auth()->user()->owns($vehicle), 403);
     }
 }

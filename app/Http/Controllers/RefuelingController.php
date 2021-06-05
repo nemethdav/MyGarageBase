@@ -67,6 +67,8 @@ class RefuelingController extends Controller
      */
     public function show(Refueling $refueling)
     {
+        $this->abortUnless($refueling);
+
         return view('pages.refuelings.show', compact('refueling'));
     }
 
@@ -78,6 +80,8 @@ class RefuelingController extends Controller
      */
     public function edit(Refueling $refueling)
     {
+        $this->abortUnless($refueling);
+
         define('HTML_DATETIME_LOCAL', "Y-m-d\TH:i");
         $php_timestamp = strtotime($refueling->date_time);
         $html_datetime_string = date(HTML_DATETIME_LOCAL, $php_timestamp);
@@ -96,6 +100,8 @@ class RefuelingController extends Controller
      */
     public function update(RefuelingCreateRequest $request, Refueling $refueling)
     {
+        $this->abortUnless($refueling);
+
         $refueling->update([
             'vehicle_id' => $request->vehicle_id,
             'user_id' => auth()->user()->id,
@@ -110,6 +116,8 @@ class RefuelingController extends Controller
             'average_consumption' => $request->average_consumption,
             'fuel_type' => $request->fuel_type
         ]);
+
+        return redirect(route('refueling.index'))->with('message', 'A tankolás sikeresen frissítve!');
     }
 
     /**
@@ -120,11 +128,17 @@ class RefuelingController extends Controller
      */
     public function destroy(Refueling $refueling)
     {
+        $this->abortUnless($refueling);
+
         try {
             $refueling->delete();
             return redirect()->back()->with('message', 'A tankolás sikeresen törölve');
         } catch (\Exception $exception) {
             return redirect()->back()->with('error', 'A tankolás törlése közbe hiba lépett fel. Hibaüzenet: ' . $exception);
         }
+    }
+
+    public function abortUnless($refueling){
+        abort_unless(auth()->user()->owns($refueling), 403);
     }
 }

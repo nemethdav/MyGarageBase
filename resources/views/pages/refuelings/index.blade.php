@@ -31,7 +31,7 @@
 
                             <table class="table table-hover">
                                 <thead class="text-warning text-center">
-                                <th width="5%">ID</th>
+                                <th width="5%">Sorszám</th>
                                 <th>Jármű beceneve</th>
                                 <th>Tankolás időpontja</th>
                                 <th>Km/üzemóra</th>
@@ -43,8 +43,7 @@
                                 <tbody class="text-center">
                                 @forelse($refuelings as $refueling)
                                     <tr>
-                                        {{--                                    <td>{{ ($loop->index) + 1 }}</td>--}}
-                                        <td>{{ ($refueling->id) }}</td>
+                                        <td>{{ (($loop->index) + 1) + ($refuelings->currentPage() * 10 - 10) }}</td>
                                         <td>{{ $refueling->vehicle->vehicleNickName }}</td>
                                         <td>{{ $refueling->date_time }}</td>
                                         <td>{{ number_format($refueling->km_operating_hour, 0, ',', ' ') }}km/üzemóra
@@ -102,7 +101,6 @@
                     {{ $refuelings->links() }}
                 </div>
             </div>
-
         </div>
     </div>
 @endsection

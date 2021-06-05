@@ -20,20 +20,27 @@
                             <form action="{{ route('refueling.update', $refueling->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
-                                <select class="custom-select" name="vehicle_id" id="vehicle_id">
-                                    <option>Jármű kiválasztása</option>
-                                    @foreach($user_vehicles as $vehicle)
-                                        <option value="{{ $vehicle->id }}"
-                                        @if (old('vehicle_id') == null)
-                                            {{ $vehicle->id == $refueling->vehicle_id ? 'selected' : '' }}
-                                            @else
-                                            {{ old('vehicle_id') == $vehicle->id ? 'selected' : '' }}
-                                            @endif
-                                        >
-                                            {{ $vehicle->vehicleNickName }}
-                                        </option>
-                                    @endforeach
-                                </select>
+
+                                <div class="row">
+                                    <label class="col-sm-4 col-form-label" for="vehicle_id">
+                                        Jármű kiválasztása
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <select class="custom-select col-sm-8" name="vehicle_id" id="vehicle_id">
+                                        <option>Járművek</option>
+                                        @foreach($user_vehicles as $vehicle)
+                                            <option value="{{ $vehicle->id }}"
+                                            @if (old('vehicle_id') == null)
+                                                {{ $vehicle->id == $refueling->vehicle_id ? 'selected' : '' }}
+                                                @else
+                                                {{ old('vehicle_id') == $vehicle->id ? 'selected' : '' }}
+                                                @endif
+                                            >
+                                                {{ $vehicle->vehicleNickName }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
                                 <div class="row">
                                     <label class="col-sm-4 col-form-label" for="date_time">
@@ -107,7 +114,7 @@
 
                                     <div class="row">
                                         <label class="col-sm-4 col-form-label" for="refueled_quantity">
-                                            Tankolt üzemanyag mennyisége
+                                            Tankolt üzemanyag mennyisége (l):
                                             <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-sm-8">
@@ -134,7 +141,7 @@
 
                                     <div class="row">
                                         <label class="col-sm-4 col-form-label" for="average_consumption">
-                                            Átlagfogyasztás
+                                            Átlagfogyasztás (l):
                                             <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-sm-8">
@@ -153,7 +160,7 @@
 
                                     <div class="row">
                                         <label class="col-sm-4 col-form-label" for="fuel_cost">
-                                            Üzemanyag egységára
+                                            Üzemanyag egységára (Ft):
                                             <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-sm-8">
@@ -180,7 +187,7 @@
 
                                     <div class="row">
                                         <label class="col-sm-4 col-form-label" for="fuel_cost">
-                                            Kedvezmény
+                                            Kedvezmény (Ft):
                                         </label>
                                         <div class="col-sm-8">
                                             <div class="form-group">
@@ -195,9 +202,13 @@
                                                     <script>
                                                         let discount = {!! json_encode(old('discount', [])) !!};
                                                     </script>
-                                                @else
+                                                @elseif(old('discount')==null)
                                                     <script>
                                                         let discount = {{ $refueling->discount }};
+                                                    </script>
+                                                @else
+                                                    <script>
+                                                        let discount = 0;
                                                     </script>
                                                 @endif
                                             </div>
@@ -206,7 +217,7 @@
 
                                     <div class="row">
                                         <label class="col-sm-4 col-form-label" for="refuelling_cost">
-                                            Tankolás költsége
+                                            Tankolás költsége (Ft):
                                             <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-sm-8">
@@ -218,18 +229,10 @@
                                                        readonly
                                                        v-model="refuelling_cost"
                                                 />
-                                                @if(old('refuelling_cost'))!=null)
-                                                    <script>
-                                                        let refuelling_cost = {!! json_encode(old('refuelling_cost', [])) !!};
-                                                    </script>
-                                                @else
-                                                    <script>
-                                                        let refuelling_cost = {{ $refueling->refuelling_cost }};
-                                                    </script>
-                                                @endif
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
                                     <div class="row">
                                         <label class="col-sm-4 col-form-label" for="fuel_type">

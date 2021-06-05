@@ -30,7 +30,7 @@
 
                             <table class="table table-hover">
                                 <thead class="text-warning text-center">
-                                <th width="5%">ID</th>
+                                <th width="5%">Sorszám</th>
                                 <th>Jármű beceneve</th>
                                 <th>Rendszám</th>
                                 <th>Márka-Típus</th>
@@ -41,8 +41,7 @@
                                 <tbody class="text-center">
                                 @forelse($vehicles as $vehicle)
                                     <tr>
-                                        {{--                                    <td>{{ ($loop->index) + 1 }}</td>--}}
-                                        <td>{{ ($vehicle->id) }}</td>
+                                        <td>{{ (($loop->index) + 1) + ($vehicles->currentPage() * 10 - 10) }}</td>
                                         <td>{{ ($vehicle->vehicleNickName) }}</td>
                                         <td>{{ $vehicle->license_plate_number }}</td>
                                         <td>{{ $vehicle->manufacturer }} {{ $vehicle->type }}</td>
@@ -58,7 +57,8 @@
                                                 </a>
                                             </span>
                                             <span>
-                                                <a href="{{ route('vehicle.edit', $vehicle->id) }}" rel="tooltip" title="Szerkesztés"
+                                                <a href="{{ route('vehicle.edit', $vehicle->id) }}" rel="tooltip"
+                                                   title="Szerkesztés"
                                                    class="btn btn-warning btn-link btn-sm">
                                                     <i class="material-icons">edit</i>
                                                 </a>
