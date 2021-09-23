@@ -234,33 +234,33 @@
                                     </div>
                                 </div>
 
-                                    <div class="row">
-                                        <label class="col-sm-4 col-form-label" for="fuel_type">
-                                            Tankolt üzemanyag fajtája
-                                        </label>
-                                        <div class="col-sm-8">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" name="fuel_type"
-                                                       id="fuel_type"
-                                                       placeholder="Tankolt üzemanyag fajtája"
-                                                       value="{{ old('fuel_type') == null ? $refueling->fuel_type : old('fuel_type') }}"/>
-                                            </div>
+                                <div class="row">
+                                    <label class="col-sm-4 col-form-label" for="fuel_type">
+                                        Tankolt üzemanyag fajtája
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="fuel_type"
+                                                   id="fuel_type"
+                                                   placeholder="Tankolt üzemanyag fajtája"
+                                                   value="{{ old('fuel_type') == null ? $refueling->fuel_type : old('fuel_type') }}"/>
                                         </div>
                                     </div>
+                                </div>
 
-                                    @include('pages.refuelings.refueling_warning')
+                                @include('pages.refuelings.refueling_warning')
 
-                                    <div class="form-group row">
-                                        <div class="col-sm-12">
-                                            <a href="{{ route('refueling.index') }}">
-                                                <button type="button" class="btn btn-danger mt-2 ml-2" rel="tooltip"
-                                                        title="Visszalépéssel az adatok nem kerülnek mentésre!">
-                                                    Visszalépés
-                                                </button>
-                                            </a>
-                                            <button type="submit" class="btn btn-warning">Mentés</button>
-                                        </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <a href="{{ route('refueling.index') }}">
+                                            <button type="button" class="btn btn-danger mt-2 ml-2" rel="tooltip"
+                                                    title="Visszalépéssel az adatok nem kerülnek mentésre!">
+                                                Visszalépés
+                                            </button>
+                                        </a>
+                                        <button type="submit" class="btn btn-warning">Mentés</button>
                                     </div>
+                                </div>
                             </form>
                         </div>
                     </div>

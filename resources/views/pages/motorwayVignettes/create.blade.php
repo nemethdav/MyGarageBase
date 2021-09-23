@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'editMotorwayVignette', 'titlePage' => __('Új autópálya matrica')])
+@extends('layouts.app', ['activePage' => 'createMotorwayVignette', 'titlePage' => __('Új autópálya matrica')])
 
 @section('content')
     <div class="content">
@@ -16,21 +16,17 @@
 
                             <x-alert/>
 
-                            <form action="{{ route('motorwayVignette.update', $motorwayVignette->id) }}" method="POST"
+                            <form action="{{ route('motorwayVignette.store') }}" method="POST"
                                   enctype="multipart/form-data">
+
+                                <div id="addMotorwayVignettes">
                                 @csrf
-                                @method('PUT')
 
                                 <select class="custom-select" name="vehicle_id" id="vehicle_id">
                                     <option>Jármű kiválasztása</option>
                                     @foreach($user_vehicles as $vehicle)
                                         <option value="{{ $vehicle->id }}"
-                                        @if (old('vehicle_id') == null)
-                                            {{ $vehicle->id == $motorwayVignette->vehicle_id ? 'selected' : '' }}
-                                            @else
-                                            {{ old('vehicle_id') == $vehicle->id ? 'selected' : '' }}
-                                            @endif
-                                        >
+                                            {{ old('vehicle_id') == $vehicle->id ? 'selected' : '' }}>
                                             {{ $vehicle->vehicleNickName }}
                                         </option>
                                     @endforeach
@@ -45,7 +41,7 @@
                                         <div class="form-group">
                                             <input type="text" class="form-control" name="type"
                                                    id="type" placeholder="Matrica típusa" required
-                                                   value="{{ old('type') == null ? $motorwayVignette->type : old('type') }}"/>
+                                                   value="{{ old('type') }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -59,7 +55,7 @@
                                         <div class="form-group">
                                             <input type="text" class="form-control" name="category"
                                                    id="category" placeholder="Matrica kategóriája" required
-                                                   value="{{ old('category') == null ? $motorwayVignette->category : old('category') }}"/>
+                                                   value="{{ old('category') }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -74,7 +70,7 @@
                                             <input type="text" min="0" class="form-control" name="location"
                                                    id="location"
                                                    placeholder="Érvényesség helye" required
-                                                   value="{{ old('location') == null ? $motorwayVignette->location : old('location') }}"/>
+                                                   value="{{ old('location') }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -90,7 +86,7 @@
                                                    name="start_date"
                                                    id="start_date"
                                                    required
-                                                   value="{{ old('start_date') == null ? $start_date : old('start_date')}}"
+                                                   value="{{ old('start_date') }}"
                                             />
                                         </div>
                                     </div>
@@ -107,7 +103,7 @@
                                                    name="end_date"
                                                    id="end_date"
                                                    required
-                                                   value="{{ old('end_date') == null ? $end_date : old('end_date') }}"
+                                                   value="{{ old('end_date') }}"
                                             />
                                         </div>
                                     </div>
@@ -124,7 +120,7 @@
                                                    name="date_of_purchase"
                                                    id="date_of_purchase"
                                                    required
-                                                   value="{{ old('date_of_purchase') == null ? $date_of_purchase : old('date_of_purchase') }}"
+                                                   value="{{ old('date_of_purchase') }}"
                                             />
                                         </div>
                                     </div>
@@ -141,7 +137,7 @@
                                                    id="price"
                                                    placeholder="Matrica ára"
                                                    required
-                                                   value="{{ old('price') == null ? $motorwayVignette->price : old('price') }}"
+                                                   value="{{ old('price') }}"
                                             />
                                         </div>
                                     </div>
@@ -150,17 +146,20 @@
                                 <div class="row mb-2">
                                     <label class="col-sm-4" for="image">
                                         Bizonylatról készült fotó
-                                        <p class="text-warning">Új fotó feltöltésekor a régi törlődik a rendszerből</p>
                                     </label>
                                     <div class="col-sm-8">
                                         <div>
                                             <input type="file" name="image"
                                                    id="image"
-                                                   value="{{ old('image')  }}"
+                                                   value="{{ old('image') }}"
+                                                   accept="image/*"
+                                                   @change="previewImage"
                                             />
                                         </div>
                                     </div>
                                 </div>
+                                    <img src="" alt="Fotó a bizonylatról" width="100%" id="preview"
+                                         style="display: none;"/>
 
 
                                 @include('layouts.star')
@@ -175,6 +174,7 @@
                                         <button type="submit" class="btn btn-warning">Mentés</button>
                                     </div>
                                 </div>
+                            </div>
                             </form>
 
                         </div>
@@ -183,4 +183,18 @@
             </div>
         </div>
     </div>
+
+    <script>
+        new Vue({
+            el: '#addMotorwayVignettes',
+            methods: {
+                previewImage: function (e) {
+                    var file = e.target.files[0];
+                    var imgURL = URL.createObjectURL(file);
+                    document.getElementById("preview").src = imgURL;
+                    document.getElementById("preview").style.display = "inline";
+                }
+            }
+        })
+    </script>
 @endsection
