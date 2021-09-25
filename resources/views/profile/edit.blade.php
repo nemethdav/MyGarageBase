@@ -123,9 +123,22 @@
                                     <h5 class="title font-weight-bold">{{ auth()->user()->name }}</h5>
                                 </div>
 
-                                <label for="changeAvatar">Profilkép módosítása</label>
-                                <br>
-                                <input type="file" id="changeAvatar" name="changeAvatar" accept="image/*">
+                                <div id="changeProfilePicture">
+                                    <label for="changeAvatar">Profilkép módosítása</label>
+                                    <br>
+                                    <input type="file"
+                                           id="changeAvatar"
+                                           name="changeAvatar"
+                                           accept="image/*"
+                                           @change="previewImage">
+                                    <br>
+                                    <img src=""
+                                         alt="Új profilkép"
+                                         width="50%"
+                                         id="preview"
+                                         style="display: none"
+                                    />
+                                </div>
                                 <br>
                             </div>
                             <div class="card-footer ml-auto mr-auto">
@@ -219,4 +232,18 @@
             </div>
         </div>
     </div>
+
+    <script>
+        new Vue({
+            el: '#changeProfilePicture',
+            methods: {
+                previewImage: function (e) {
+                    var file = e.target.files[0];
+                    var imgURL = URL.createObjectURL(file);
+                    document.getElementById("preview").src = imgURL;
+                    document.getElementById("preview").style.display = "inline";
+                }
+            }
+        })
+    </script>
 @endsection

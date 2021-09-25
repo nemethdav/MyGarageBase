@@ -35,8 +35,11 @@
                                     <label for="vehicle_image">Jármű profilkép megváltoztatása</label><br>
                                     <input type="file" id="vehicle_image" name="vehicle_image" accept="image/*" @change="previewImage"
                                            {{ old('vehicle_image') }}>
-                                    <img src="" alt="Jármű új profilképe" height="100" id="preview"
-                                         />
+                                    <img src=""
+                                         alt="Jármű új profilképe"
+                                         height="100"
+                                         id="preview"
+                                         style="display: none;"/>
 
                                     <div class="row">
                                         <label class="col-sm-4 col-form-label" for="vehicleNickName">
