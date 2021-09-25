@@ -1,15 +1,16 @@
-@extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => 'email', 'title' => __('Material Dashboard')])
+{{--Elfelejtett jelszó gomb--}}
+@extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => 'email', 'titlePage' => __('Elfelejtett jelszó')])
 
 @section('content')
 <div class="container" style="height: auto;">
   <div class="row align-items-center">
     <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
-      <form class="form" method="POST" action="{{ route('password.email') }}">
+      <form novalidate class="form" method="POST" action="{{ route('password.email') }}">
         @csrf
 
         <div class="card card-login card-hidden mb-3">
           <div class="card-header card-header-primary text-center">
-            <h4 class="card-title"><strong>{{ __('Forgot Password') }}</strong></h4>
+            <h4 class="card-title"><strong>{{ __('Elfelejtett jelszó') }}</strong></h4>
           </div>
           <div class="card-body">
             @if (session('status'))
@@ -19,7 +20,8 @@
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                       <i class="material-icons">close</i>
                     </button>
-                    <span>{{ session('status') }}</span>
+{{--                    <span>{{ session('status') }}</span>--}}
+                    <span>Visszaállító link elküldve</span>
                   </div>
                 </div>
               </div>
@@ -35,13 +37,18 @@
               </div>
               @if ($errors->has('email'))
                 <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
-                  <strong>{{ $errors->first('email') }}</strong>
+{{--                  <strong>{{ $errors->first('email') }}</strong>--}}
+                    @if(old('email')=='')
+                    <span>Kérem adjon meg egy e-mail címet</span>
+                    @else
+                    <span>Nincs ilyen e-mail cím a rendszerben</span>
+                    @endif
                 </div>
               @endif
             </div>
           </div>
           <div class="card-footer justify-content-center">
-            <button type="submit" class="btn btn-primary btn-link btn-lg">{{ __('Send Password Reset Link') }}</button>
+            <button type="submit" class="btn btn-primary btn-link btn-lg">{{ __('Jelszó visszaállítási link küldése') }}</button>
           </div>
         </div>
       </form>

@@ -1,16 +1,17 @@
-@extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => '', 'title' => __('Material Dashboard')])
+{{--E-mailből kapott link--}}
+@extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => 'forgotPassword', 'titlePage' => __('Elfelejtett jelszó')])
 
 @section('content')
 <div class="container" style="height: auto;">
   <div class="row align-items-center">
     <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
-      <form class="form" method="POST" action="{{ route('password.update') }}">
+      <form novalidate class="form" method="POST" action="{{ route('password.update') }}">
         @csrf
 
         <input type="hidden" name="token" value="{{ $token }}">
         <div class="card card-login card-hidden mb-3">
           <div class="card-header card-header-primary text-center">
-            <h4 class="card-title"><strong>{{ __('Reset Password') }}</strong></h4>
+            <h4 class="card-title"><strong>{{ __('Jelszó visszaállítás') }}</strong></h4>
           </div>
           <div class="card-body ">
             <div class="bmd-form-group{{ $errors->has('email') ? ' has-danger' : '' }} mt-3">
@@ -35,7 +36,7 @@
                     <i class="material-icons">lock_outline</i>
                   </span>
                 </div>
-                <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Password...') }}" required>
+                <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Jelszó...') }}" required>
               </div>
               @if ($errors->has('password'))
                 <div id="password-error" class="error text-danger pl-3" for="password" style="display: block;">
@@ -50,7 +51,7 @@
                     <i class="material-icons">lock_outline</i>
                   </span>
                 </div>
-                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="{{ __('Confirm Password...') }}" required>
+                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="{{ __('Jelszó megerősítése...') }}" required>
               </div>
               @if ($errors->has('password_confirmation'))
                 <div id="password_confirmation-error" class="error text-danger pl-3" for="password_confirmation" style="display: block;">
@@ -60,7 +61,7 @@
             </div>
           </div>
           <div class="card-footer justify-content-center">
-            <button type="submit" class="btn btn-primary btn-link btn-lg">{{ __('Reset Password') }}</button>
+            <button type="submit" class="btn btn-primary btn-link btn-lg">{{ __('Jelszó frissítése') }}</button>
           </div>
         </div>
       </form>
