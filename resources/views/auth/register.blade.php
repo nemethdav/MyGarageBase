@@ -10,20 +10,21 @@
         <div class="card card-login card-hidden mb-3">
           <div class="card-header card-header-primary text-center">
             <h4 class="card-title"><strong>{{ __('Regisztráció') }}</strong></h4>
-{{--            <div class="social-line">--}}
-{{--              <a href="#pablo" class="btn btn-just-icon btn-link btn-white">--}}
-{{--                <i class="fa fa-facebook-square"></i>--}}
-{{--              </a>--}}
+            <div class="social-line">
+                <p class="card-description text-center">{{ __('Regisztráljon közösségi média segítségével') }}</p>
+              <a href="{{ route('facebook.login') }}" class="btn btn-just-icon btn-link btn-white">
+                <i class="fa fa-facebook-square"></i>
+              </a>
 {{--              <a href="#pablo" class="btn btn-just-icon btn-link btn-white">--}}
 {{--                <i class="fa fa-twitter"></i>--}}
 {{--              </a>--}}
-{{--              <a href="#pablo" class="btn btn-just-icon btn-link btn-white">--}}
-{{--                <i class="fa fa-google-plus"></i>--}}
-{{--              </a>--}}
-{{--            </div>--}}
+              <a href="#pablo" class="btn btn-just-icon btn-link btn-white">
+                <i class="fa fa-google-plus"></i>
+              </a>
+            </div>
           </div>
           <div class="card-body ">
-{{--            <p class="card-description text-center">{{ __('Vagy regisztrálj e-mail címeddel') }}</p>--}}
+              <p class="card-description text-center">{{ __('Vagy regisztráljon e-mail címe használatával használatával') }}</p>
             <div class="bmd-form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -31,6 +32,7 @@
                       <i class="material-icons">face</i>
                   </span>
                 </div>
+
                 <input type="text" name="name" class="form-control" placeholder="{{ __('Név...') }}" value="{{ old('name') }}" required>
               </div>
               @if ($errors->has('name'))

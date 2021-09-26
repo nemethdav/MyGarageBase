@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FacebookController;
 use App\Http\Controllers\MotorwayVignetteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RefuelingController;
@@ -48,4 +49,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('/vehicle', VehicleController::class);
     Route::resource('/refueling', RefuelingController::class);
     Route::resource('/motorwayVignette', MotorwayVignetteController::class);
+});
+
+Route::prefix('facebook')->name('facebook.')->group(function (){
+    Route::get('auth', [FacebookController::class, 'loginUsingFacebook'])->name('login');
+    Route::get('callback', [FacebookController::class, 'callbackFromFacebook'])->name('callback');
 });
