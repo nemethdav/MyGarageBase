@@ -62,14 +62,15 @@
                                     </div>
                                 @endif
                             </div>
-                            {{--            <div class="form-check mr-auto ml-3 mt-3">--}}
-                            {{--              <label class="form-check-label">--}}
-                            {{--                <input class="form-check-input" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Emlékezz rám') }}--}}
-                            {{--                <span class="form-check-sign">--}}
-                            {{--                  <span class="check"></span>--}}
-                            {{--                </span>--}}
-                            {{--              </label>--}}
-                            {{--            </div>--}}
+                            @if ($errors->has('g-recaptcha-response'))
+                                <span class="help-block error text-danger pl-3">
+                                    <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                                </span>
+                            @endif
+                            <div class="mt-3">
+                                {!! NoCaptcha::renderJs() !!}
+                                {!! NoCaptcha::display() !!}
+                            </div>
                         </div>
                         <div class="card-footer justify-content-center">
                             <button type="submit"
