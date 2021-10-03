@@ -6,6 +6,7 @@ use App\Http\Controllers\MotorwayVignetteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RefuelingController;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\YearKMController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,8 +51,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('/vehicle', VehicleController::class);
     Route::resource('/refueling', RefuelingController::class);
     Route::resource('/motorwayVignette', MotorwayVignetteController::class);
+    Route::resource("/yearkm", YearKMController::class);
 });
 
+//Social auth
 Route::prefix('facebook')->name('facebook.')->group(function (){
     Route::get('auth', [FacebookController::class, 'loginUsingFacebook'])->name('login');
     Route::get('callback', [FacebookController::class, 'callbackFromFacebook'])->name('callback');

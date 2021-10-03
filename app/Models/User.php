@@ -71,7 +71,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function owns($thing){ //$this = vehicle/refueling/motorwayVignette
+    public function owns($thing){
         return (auth()->user()->id == $thing->user_id);
     }
 
@@ -85,5 +85,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function motorwayVignettes(){
         return $this->hasMany(MotorwayVignette::class);
+    }
+
+    public function yearKMs(){
+        return $this->hasMany(YearKM::class);
     }
 }

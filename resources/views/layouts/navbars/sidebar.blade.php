@@ -103,6 +103,15 @@
                 </a>
             </li>
 
+            <li class="nav-item{{ $activePage == 'yearKM' || $activePage == 'yearKM' ||
+                    $activePage == 'yearKM' || $activePage == 'yearKM' ? ' active' : '' }}">
+                <a class="nav-link" href="{{ route('yearkm.index') }}">
+                    <img src="{{ asset('storage/imgs/spedometer.png') }}" width="50px" style="float: left"
+                         class="mr-3">
+                    <p>{{ __('Évente megtett KM') }}</p>
+                </a>
+            </li>
+
             {{--            <li class="nav-item{{ $activePage == 'table' ? ' active' : '' }}">--}}
             {{--                <a class="nav-link" href="{{ route('table') }}">--}}
             {{--                    <i class="material-icons">content_paste</i>--}}

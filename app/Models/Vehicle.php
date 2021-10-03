@@ -30,4 +30,8 @@ class Vehicle extends Model
     public function motorwayVignettes(){
         return $this->hasMany(MotorwayVignette::class);
     }
+
+    public function yearKMs(){
+        return $this->hasMany(YearKM::class);
+    }
 }

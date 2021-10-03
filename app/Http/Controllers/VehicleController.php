@@ -84,7 +84,7 @@ class VehicleController extends Controller
     public function show(Vehicle $vehicle)
     {
         $this->abortUnless($vehicle);
-
+dd($vehicle);
         return view('pages.vehicles.show', compact(["vehicle"]));
     }
 
