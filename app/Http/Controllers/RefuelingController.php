@@ -8,6 +8,9 @@ use Illuminate\Pagination\Paginator;
 
 class RefuelingController extends Controller
 {
+
+    private const IMAGE_DESTINATION = 'storage/imgs/refuellingImages/';
+
     /**
      * Display a listing of the resource.
      *
@@ -41,6 +44,13 @@ class RefuelingController extends Controller
      */
     public function store(RefuelingCreateRequest $request)
     {
+        $image_name = null;
+        if (($file = $request->file('image')) != null) {
+            $image_name = uniqid() . "." . $request->image->getClientOriginalExtension();
+            //Upload file
+            $move = $file->move(public_path(self::IMAGE_DESTINATION), $image_name);
+        }
+
         auth()->user()->refuelings()->create([
             'vehicle_id' => $request->vehicle_id,
             'user_id' => auth()->user()->id,
@@ -53,7 +63,8 @@ class RefuelingController extends Controller
             'fuel_cost' => $request->fuel_cost,
             'refuelling_cost' => $request->refuelling_cost,
             'average_consumption' => $request->average_consumption,
-            'fuel_type' => $request->fuel_type
+            'fuel_type' => $request->fuel_type,
+            'image' => $image_name
         ]);
 
         return redirect(route('refueling.index'))->with('message', 'A tankolás sikeresen rögzítve!');
@@ -102,6 +113,17 @@ class RefuelingController extends Controller
     {
         $this->abortUnless($refueling);
 
+        $imageName = $refueling->image;
+        if (($file = $request->file('image')) != null) {
+            $imageName = uniqid() . "." . $request->image->getClientOriginalExtension();
+            //Upload file
+            $move = $file->move(public_path(self::IMAGE_DESTINATION), $imageName);
+
+            $oldImage = $refueling->image;
+            if ($oldImage != null)
+                unlink(self::IMAGE_DESTINATION . $oldImage);
+        }
+
         $refueling->update([
             'vehicle_id' => $request->vehicle_id,
             'user_id' => auth()->user()->id,
@@ -114,7 +136,8 @@ class RefuelingController extends Controller
             'fuel_cost' => $request->fuel_cost,
             'refuelling_cost' => $request->refuelling_cost,
             'average_consumption' => $request->average_consumption,
-            'fuel_type' => $request->fuel_type
+            'fuel_type' => $request->fuel_type,
+            'image' => $imageName
         ]);
 
         return redirect(route('refueling.index'))->with('message', 'A tankolás sikeresen frissítve!');

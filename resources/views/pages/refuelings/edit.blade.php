@@ -17,61 +17,64 @@
 
                             <x-alert/>
 
-                            <form action="{{ route('refueling.update', $refueling->id) }}" method="POST">
+                            <form action="{{ route('refueling.update', $refueling->id) }}" method="POST"
+                                  enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
 
-                                <div class="row">
-                                    <label class="col-sm-4 col-form-label" for="vehicle_id">
-                                        Jármű kiválasztása
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                    <select class="custom-select col-sm-8" name="vehicle_id" id="vehicle_id">
-                                        <option>Járművek</option>
-                                        @foreach($user_vehicles as $vehicle)
-                                            <option value="{{ $vehicle->id }}"
-                                            @if (old('vehicle_id') == null)
-                                                {{ $vehicle->id == $refueling->vehicle_id ? 'selected' : '' }}
-                                                @else
-                                                {{ old('vehicle_id') == $vehicle->id ? 'selected' : '' }}
-                                                @endif
-                                            >
-                                                {{ $vehicle->vehicleNickName }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                <div id="refuelling">
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label" for="vehicle_id">
+                                            Jármű kiválasztása
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <select class="custom-select col-sm-8" name="vehicle_id" id="vehicle_id">
+                                            <option>Járművek</option>
+                                            @foreach($user_vehicles as $vehicle)
+                                                <option value="{{ $vehicle->id }}"
+                                                @if (old('vehicle_id') == null)
+                                                    {{ $vehicle->id == $refueling->vehicle_id ? 'selected' : '' }}
+                                                    @else
+                                                    {{ old('vehicle_id') == $vehicle->id ? 'selected' : '' }}
+                                                    @endif
+                                                >
+                                                    {{ $vehicle->vehicleNickName }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
 
-                                <div class="row">
-                                    <label class="col-sm-4 col-form-label" for="date_time">
-                                        Tankolás időpontja
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                    <div class="col-sm-8">
-                                        <div class="form-group">
-                                            <input type="datetime-local" class="form-control" name="date_time"
-                                                   id="date_time" required
-                                                   value="{{ old('date_time') == null ? $html_datetime_string : old('date_time') }}"/>
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label" for="date_time">
+                                            Tankolás időpontja
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <input type="datetime-local" class="form-control" name="date_time"
+                                                       id="date_time" required
+                                                       value="{{ old('date_time') == null ? $html_datetime_string : old('date_time') }}"/>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="row">
-                                    <label class="col-sm-4 col-form-label" for="km_operating_hour">
-                                        Óraállás
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                    <div class="col-sm-8">
-                                        <div class="form-group">
-                                            <input type="number" min="0" class="form-control" name="km_operating_hour"
-                                                   id="km_operating_hour"
-                                                   placeholder="Km óra vagy üzemóra állása" required
-                                                   value="{{ old('km_operating_hour') == null ? $refueling->km_operating_hour : old('km_operating_hour') }}"/>
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label" for="km_operating_hour">
+                                            Óraállás
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <input type="number" min="0" class="form-control"
+                                                       name="km_operating_hour"
+                                                       id="km_operating_hour"
+                                                       placeholder="Km óra vagy üzemóra állása" required
+                                                       value="{{ old('km_operating_hour') == null ? $refueling->km_operating_hour : old('km_operating_hour') }}"/>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div id="calc">
+
                                     <div class="row">
                                         <label class="col-sm-4 col-form-label" for="trip1">
                                             Számláló 1
@@ -232,23 +235,43 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="row">
-                                    <label class="col-sm-4 col-form-label" for="fuel_type">
-                                        Tankolt üzemanyag fajtája
-                                    </label>
-                                    <div class="col-sm-8">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" name="fuel_type"
-                                                   id="fuel_type"
-                                                   placeholder="Tankolt üzemanyag fajtája"
-                                                   value="{{ old('fuel_type') == null ? $refueling->fuel_type : old('fuel_type') }}"/>
+
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label" for="fuel_type">
+                                            Tankolt üzemanyag fajtája
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="fuel_type"
+                                                       id="fuel_type"
+                                                       placeholder="Tankolt üzemanyag fajtája"
+                                                       value="{{ old('fuel_type') == null ? $refueling->fuel_type : old('fuel_type') }}"/>
+                                            </div>
                                         </div>
                                     </div>
+
+                                    <div class="row mb-2">
+                                        <label class="col-sm-4" for="image">
+                                            Bizonylatról készült fotó
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <div>
+                                                <input type="file" name="image"
+                                                       id="image"
+                                                       value="{{ old('image') }}"
+                                                       accept="image/*"
+                                                       @change="previewImage"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <img src="" alt="Fotó a bizonylatról" width="100%" id="preview"
+                                         style="display: none;"/>
                                 </div>
 
                                 @include('pages.refuelings.refueling_warning')
+
 
                                 <div class="form-group row">
                                     <div class="col-sm-12">
@@ -271,7 +294,7 @@
     </div>
     <script>
         new Vue({
-            el: '#calc',
+            el: '#refuelling',
             data: {
                 trip1: trip1,
                 refueled_quantity: refueled_quantity,
@@ -285,6 +308,14 @@
                 },
                 refuelling_cost: function () {
                     return Math.round(this.fuel_cost * this.refueled_quantity - this.discount);
+                }
+            },
+            methods: {
+                previewImage: function (e) {
+                    var file = e.target.files[0];
+                    var imgURL = URL.createObjectURL(file);
+                    document.getElementById("preview").src = imgURL;
+                    document.getElementById("preview").style.display = "inline";
                 }
             }
         })

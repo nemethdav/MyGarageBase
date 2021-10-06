@@ -44,14 +44,12 @@
                                             </td>
                                             <td width="50%" class="text-left">{{ $refueling->trip1 }}</td>
                                         </tr>
-                                        @if ($refueling->trip2 =! null)
                                             <tr>
                                                 <td width="50%" class="text-right"><span
                                                         class="text-muted">Számláló 2 vagy éves számláló állása:</span>
                                                 </td>
                                                 <td width="50%" class="text-left">{{ $refueling->trip2 }}</td>
                                             </tr>
-                                        @endif
                                         <tr>
                                             <td width="50%" class="text-right"><span
                                                     class="text-muted">Tankolt mennyiség:</span></td>
@@ -85,6 +83,19 @@
                                                 <td width="50%" class="text-right"><span
                                                         class="text-muted">Tankolt üzemanyag fajtája:</span></td>
                                                 <td width="50%" class="text-left">{{ $refueling->fuel_type }}</td>
+                                            </tr>
+                                        @endif
+                                        @if ($refueling->image != null)
+                                            <tr>
+                                                <td width="50%" class="text-right"><span
+                                                        class="text-muted">Bizonylat fotó:</span>
+                                                </td>
+                                                <td width="50%" class="text-left">
+                                                    <a href="{{ asset('storage/imgs/refuellingImages/' . $refueling->image) }}" target="_blank">
+                                                        <img src="{{ asset('storage/imgs/refuellingImages/' . $refueling->image) }}"
+                                                             alt="nyugtaKép" width="30px">
+                                                    </a>
+                                                </td>
                                             </tr>
                                         @endif
                                         </tbody>
