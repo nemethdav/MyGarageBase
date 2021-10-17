@@ -3,6 +3,7 @@
 use App\Http\Controllers\FacebookController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\MotorwayVignetteController;
+use App\Http\Controllers\OtherCostsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RefuelingController;
 use App\Http\Controllers\VehicleController;
@@ -52,6 +53,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('/refueling', RefuelingController::class);
     Route::resource('/motorwayVignette', MotorwayVignetteController::class);
     Route::resource("/yearkm", YearKMController::class);
+    Route::resource("/otherCosts", OtherCostsController::class);
 });
 
 //Social auth

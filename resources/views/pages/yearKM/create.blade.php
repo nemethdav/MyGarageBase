@@ -7,7 +7,7 @@
                 <div class="col-lg-5 col-md-12">
 
                     <div class="card">
-                        <div class="card-header card-header-info">
+                        <div class="card-header card-header-warning">
                             <h4 class="card-title">
                                 Évi km rögzítése
                             </h4>

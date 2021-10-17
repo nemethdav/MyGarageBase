@@ -112,6 +112,16 @@
                 </a>
             </li>
 
+            <li class="nav-item{{ $activePage == 'otherCosts' || $activePage == 'editOtcerCosts' ||
+                    $activePage == 'createOtcerCosts' || $activePage == 'showOtcerCosts' ? ' active' : '' }}">
+                <a class="nav-link" href="{{ route('otherCosts.index') }}">
+                    <i class="material-icons">
+                        paid
+                    </i>
+                    <p>{{ __('Egyéb kiadások') }}</p>
+                </a>
+            </li>
+
             {{--            <li class="nav-item{{ $activePage == 'table' ? ' active' : '' }}">--}}
             {{--                <a class="nav-link" href="{{ route('table') }}">--}}
             {{--                    <i class="material-icons">content_paste</i>--}}

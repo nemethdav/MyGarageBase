@@ -34,4 +34,8 @@ class Vehicle extends Model
     public function yearKMs(){
         return $this->hasMany(YearKM::class);
     }
+
+    public function otherCosts(){
+        return $this->hasMany(OtherCosts::class);
+    }
 }

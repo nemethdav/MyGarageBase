@@ -90,4 +90,8 @@ class User extends Authenticatable implements MustVerifyEmail
     public function yearKMs(){
         return $this->hasMany(YearKM::class);
     }
+
+    public function otherCosts(){
+        return $this->hasMany(OtherCosts::class);
+    }
 }
