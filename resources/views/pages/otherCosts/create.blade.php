@@ -50,7 +50,7 @@
                                     </label>
                                     <div class="col-sm-8">
                                         <div class="form-group">
-                                                <textarea id="description" name="description" rows="4" cols="50">{{ old('description') }}</textarea>
+                                                <textarea class="form-control" id="description" name="description" rows="4" cols="50">{{ old('description') }}</textarea>
                                         </div>
                                     </div>
                                 </div>

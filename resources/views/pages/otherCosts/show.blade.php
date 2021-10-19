@@ -15,7 +15,7 @@
 
                         <div class="card-body">
                             <div class="text-center">
-                                <h3>Kiválasztott költség részletei</h3>
+                                <h3>{{ $otherCost->title }} költség részletei</h3>
                             </div>
                             <div class="col-sm-12 col-md-6 offset-md-3">
                                 <div class="table-responsive">

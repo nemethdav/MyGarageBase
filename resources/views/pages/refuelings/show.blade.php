@@ -14,9 +14,6 @@
                         </div>
 
                         <div class="card-body">
-                            <div class="text-center">
-                                <h3>{{ $refueling->date_time }} tankolás részletei</h3>
-                            </div>
                             <div class="col-sm-12 col-md-6 offset-md-3">
                                 <div class="table-responsive">
                                     <table class="table table-hover">

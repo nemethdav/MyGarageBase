@@ -11,7 +11,7 @@
                             <h3 class="card-title d-flex justify-content-between">
                                 Egyéb kiadások
                                 <a href="{{ route('otherCosts.create') }}">
-                                    <button type="button" rel="tooltip" title="Új autópálya matrica rögzítése"
+                                    <button type="button" rel="tooltip" title="Új egyéb költség hozzáadása"
                                             class="btn btn-success btn-link btn-sm">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
                                              fill="orange"

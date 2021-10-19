@@ -9,14 +9,11 @@
                     <div class="card">
                         <div class="card-header card-header-success">
                             <h3 class="card-title d-flex justify-content-between">
-                                Kiválasztott autópályamatrica részletei
+                                Autópályamatrica részletei
                             </h3>
                         </div>
 
                         <div class="card-body">
-                            <div class="text-center">
-                                <h3>Autópályamatrica részletek megtekintése</h3>
-                            </div>
                             <div class="col-sm-12 col-md-6 offset-md-3">
                                 <div class="table-responsive">
                                     <table class="table table-hover">
