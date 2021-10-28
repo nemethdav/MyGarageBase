@@ -84,7 +84,6 @@ class VehicleController extends Controller
     public function show(Vehicle $vehicle)
     {
         $this->abortUnless($vehicle);
-dd($vehicle);
         return view('pages.vehicles.show', compact(["vehicle"]));
     }
 
@@ -163,6 +162,10 @@ dd($vehicle);
         $this->abortUnless($vehicle);
 
         try {
+            $dest = 'storage/imgs/vehicles/';
+            $vehicleImage = $vehicle->vehicle_image;
+            if ($vehicleImage != null)
+                unlink($dest . $vehicleImage);
             $vehicle->delete();
             return redirect()->back()->with('message', 'A jármű sikeresen törölve');
         } catch (\Exception $exception) {

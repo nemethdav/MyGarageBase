@@ -154,6 +154,9 @@ class RefuelingController extends Controller
         $this->abortUnless($refueling);
 
         try {
+            $image = $refueling->image;
+            if ($image != null)
+                unlink(self::IMAGE_DESTINATION . $image);
             $refueling->delete();
             return redirect()->back()->with('message', 'A tankolás sikeresen törölve');
         } catch (\Exception $exception) {
