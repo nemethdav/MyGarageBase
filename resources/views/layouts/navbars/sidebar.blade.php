@@ -12,12 +12,12 @@
     </div>
     <div class="sidebar-wrapper">
         <ul class="nav">
-            {{--            <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">--}}
-            {{--                <a class="nav-link" href="{{ route('home') }}">--}}
-            {{--                    <i class="material-icons">dashboard</i>--}}
-            {{--                    <p>{{ __('Főképernyő') }}</p>--}}
-            {{--                </a>--}}
-            {{--            </li>--}}
+                        <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">
+                            <a class="nav-link" href="{{ route('home') }}">
+                                <i class="material-icons">dashboard</i>
+                                <p>{{ __('Főképernyő') }}</p>
+                            </a>
+                        </li>
             <li class="nav-item {{ ($activePage == 'profile') ? ' active' : '' }}">
                 <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="true">
                     <i class="material-icons">settings</i>
