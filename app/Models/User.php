@@ -75,6 +75,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return (auth()->user()->id == $thing->user_id);
     }
 
+    public function ownImage($user_id){
+        return (auth()->user()->id == $user_id);
+    }
+
     public function vehicles(){
         return $this->hasMany(Vehicle::class);
     }
@@ -93,5 +97,13 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function otherCosts(){
         return $this->hasMany(OtherCosts::class);
+    }
+
+    public function services(){
+        return $this->hasMany(Service::class);
+    }
+
+    public function serviceImages(){
+        return $this->hasMany(ServiceImages::class);
     }
 }

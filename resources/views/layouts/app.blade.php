@@ -27,6 +27,16 @@
     <link href="{{ asset('material') }}/css/material-dashboard.css?v=2.1.1" rel="stylesheet"/>
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{ asset('material') }}/demo/demo.css" rel="stylesheet"/>
+
+{{--    Dropzone CSS--}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css" integrity="sha512-jU/7UFiaW5UBGODEopEqnbIAHOI8fO6T99m7Tsmqs2gkdujByJfkCbbfPSN4Wlqlb9TGnsuC0YgUgWkRBK7B9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+{{--    Lightbox--}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/lightbox.css') }}"/>
+
+    <script type="text/javascript">
+        var baseUrl = "{{ url('/') }}";
+    </script>
 </head>
 <body class="{{ $class ?? '' }}">
 @auth()
@@ -128,5 +138,11 @@
 <script src="{{ asset('material') }}/js/settings.js"></script>
 @stack('js')
 
+{{--Dropzone.js--}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js" integrity="sha512-oQq8uth41D+gIH/NJvSJvVB85MFk1eWpMK6glnkg6I7EdMqC1XVkW7RxLheXwmFdG03qScCM7gKS/Cx3FYt7Tg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{{ asset('js/imagePreview.js') }}"></script>
+
+{{--Lightbox--}}
+<script src="{{ asset('js/lightbox.js') }}"></script>
 </body>
 </html>

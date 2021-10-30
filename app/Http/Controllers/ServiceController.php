@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ServiceRequest;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 
 class ServiceController extends Controller
 {
@@ -12,9 +14,14 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    private const IMAGE_DESTINATION = 'storage/imgs/serviceImages/';
+
     public function index()
     {
-        //
+        Paginator::useBootstrap();
+        $services = auth()->user()->services()->paginate(20);
+        return view('pages.services.index', compact(['services']));
     }
 
     /**
@@ -24,18 +31,31 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        $user_vehicles = auth()->user()->vehicles()->get();
+        return view('pages.services.create', compact('user_vehicles'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Requests\ServiceRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ServiceRequest $request)
     {
-        //
+        auth()->user()->services()->create([
+            'user_id'=>auth()->user()->id,
+            'vehicle_id' => $request->vehicle_id,
+            'service_name'=>$request->service_name,
+            'service_title'=>$request->service_title,
+            'service_date'=>$request->service_date,
+            'km_operatinghour'=>$request->km_operatinghour,
+            'description'=>$request->description,
+            'price'=>$request->price
+        ]);
+
+        return redirect(route('services.index'))->with('message', 'A szervizelés sikeresen rögzítve!');
     }
 
     /**
@@ -46,7 +66,8 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        //
+        $this->abortUnless($service);
+        return view('pages.services.show', compact('service'));
     }
 
     /**
@@ -57,19 +78,35 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        //
+        $this->abortUnless($service);
+        $user_vehicles = auth()->user()->vehicles()->get();
+        return view('pages.services.edit', compact(['user_vehicles', 'service']));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Requests\ServiceRequest $request
      * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Service $service)
     {
-        //
+        $this->abortUnless($service);
+
+        $service->update([
+            'user_id'=>auth()->user()->id,
+            'vehicle_id' => $request->vehicle_id,
+            'service_name'=>$request->service_name,
+            'service_title'=>$request->service_title,
+            'service_date'=>$request->service_date,
+            'km_operatinghour'=>$request->km_operatinghour,
+            'description'=>$request->description,
+            'price'=>$request->price
+        ]);
+
+        return redirect(route('services.index'))->with('message', 'A szervizelés sikeresen frissítve!');
     }
 
     /**
@@ -80,6 +117,26 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
-        //
+        $this->abortUnless($service);
+
+        try {
+            $images = $service->serviceImages();
+
+            foreach ($service->serviceImages as $image){
+                unlink(self::IMAGE_DESTINATION . $image->file_name);
+                unlink('storage/imgs/serviceImages/thumbs' . $image->file_name);
+            }
+
+            $images->delete();
+            $service->delete();
+
+            return redirect()->back()->with('message', 'A szervizelés sikeresen törölve');
+        } catch (\Exception $exception) {
+            return redirect()->back()->with('error', 'A szervizelés törlése közbe hiba lépett fel. Hibaüzenet: ' . $exception);
+        }
+    }
+
+    public function abortUnless($service){
+        abort_unless(auth()->user()->owns($service), 403);
     }
 }

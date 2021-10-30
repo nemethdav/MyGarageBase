@@ -6,6 +6,8 @@ use App\Http\Controllers\MotorwayVignetteController;
 use App\Http\Controllers\OtherCostsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RefuelingController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ServiceImagesController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\YearKMController;
 use Illuminate\Support\Facades\Route;
@@ -31,16 +33,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home')->middleware('auth');
 
-Route::group(['middleware' => ['auth', 'verified']], function () {
-
-	Route::get('table-list', function () {
-		return view('pages.table_list');
-	})->name('table');
-
-	Route::get('notifications', function () {
-		return view('pages.notifications');
-	})->name('notifications');
-});
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
@@ -53,6 +45,11 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('/refueling', RefuelingController::class);
     Route::resource('/motorwayVignette', MotorwayVignetteController::class);
     Route::resource("/yearkm", YearKMController::class);
+    Route::resource('/services', ServiceController::class);
+    Route::get('/services/gallery/{id}', [ServiceImagesController::class, 'viewServicePictures'])->name('serviceGallery');
+    Route::post('/services/image/upload', [ServiceImagesController::class, 'imageUpload'])->name('serviceImageUpload');
+    Route::delete('services/image/delete/{id}', [ServiceImagesController::class, 'deleteImage'])->name('deleteServiceImage');
+
     Route::resource("/otherCosts", OtherCostsController::class);
 });
 

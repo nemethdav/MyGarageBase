@@ -112,6 +112,16 @@
                 </a>
             </li>
 
+            <li class="nav-item{{ $activePage == 'services' || $activePage == 'createService' ||
+                    $activePage == 'editService' || $activePage == 'showService' ? ' active' : '' }}">
+                <a class="nav-link" href="{{ route('services.index') }}">
+                    <i class="material-icons">
+                        build
+                    </i>
+                    <p>{{ __('Szervizelések') }}</p>
+                </a>
+            </li>
+
             <li class="nav-item{{ $activePage == 'otherCosts' || $activePage == 'editOtcerCosts' ||
                     $activePage == 'createOtcerCosts' || $activePage == 'showOtcerCosts' ? ' active' : '' }}">
                 <a class="nav-link" href="{{ route('otherCosts.index') }}">
@@ -122,18 +132,6 @@
                 </a>
             </li>
 
-            {{--            <li class="nav-item{{ $activePage == 'table' ? ' active' : '' }}">--}}
-            {{--                <a class="nav-link" href="{{ route('table') }}">--}}
-            {{--                    <i class="material-icons">content_paste</i>--}}
-            {{--                    <p>{{ __('Table List') }}</p>--}}
-            {{--                </a>--}}
-            {{--            </li>--}}
-            {{--            <li class="nav-item{{ $activePage == 'notifications' ? ' active' : '' }}">--}}
-            {{--                <a class="nav-link" href="{{ route('notifications') }}">--}}
-            {{--                    <i class="material-icons">notifications</i>--}}
-            {{--                    <p>{{ __('Notifications') }}</p>--}}
-            {{--                </a>--}}
-            {{--            </li>--}}
             <li class="nav-item mt-5">
                 <a class="nav-link text-white btn-danger" href="{{ route('logout') }}"
                    onclick="event.preventDefault();document.getElementById('logout-form').submit();">
@@ -141,6 +139,7 @@
                     <p>{{ __('Kijelentkezés') }}</p>
                 </a>
             </li>
+
             <li class="nav-item github-button">
                 <a class="nav-link text-white bg-info" target="_blank"
                    href="https://github.com/nemethdav/MyGarageBase.git">
