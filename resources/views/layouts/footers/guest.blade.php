@@ -16,7 +16,7 @@
         </nav>
         <div class="copyright float-right">
             Készítette: Németh Dávid, 2021
-            <a href="https://github.com/nemethdav/MyGarageBase.git">
+            <a href="https://github.com/nemethdav/MyGarageBase.git" target="_blank">
                 <img src="{{asset('material/img/github.png')}}" height="15" >
                 Projekt GitHub linkje
             </a>

@@ -142,13 +142,6 @@
                                             </button>
                                         </a>
                                         <button type="submit" class="btn btn-outline-info">Mentés</button>
-                                        <a href="">
-                                            <button type="button" class="btn btn-outline-info">
-                                                Tovább a képek feltöltéséhez
-                                                <i class="material-icons">image</i>
-                                                <i class="material-icons">arrow_forward</i>
-                                            </button>
-                                        </a>
                                     </div>
                                 </div>
                             </form>
