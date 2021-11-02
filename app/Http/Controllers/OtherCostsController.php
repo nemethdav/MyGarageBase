@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OtherCostsRequest;
 use App\Models\OtherCosts;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use PDF;
 
 class OtherCostsController extends Controller
 {
@@ -18,7 +20,8 @@ class OtherCostsController extends Controller
     {
         Paginator::useBootstrap();
         $otherCosts = auth()->user()->otherCosts()->paginate(10);
-        return view('pages.otherCosts.index', compact('otherCosts'));
+        $vehicles = auth()->user()->vehicles()->get();
+        return view('pages.otherCosts.index', compact(['otherCosts', 'vehicles']));
     }
 
     /**
@@ -119,5 +122,19 @@ class OtherCostsController extends Controller
     public function abortUnless($otherCost)
     {
         abort_unless(auth()->user()->owns($otherCost), 403);
+    }
+
+    public function createPDF(Request $request)
+    {
+        $otherCosts = OtherCosts::where('vehicle_id', $request->vehicleID)->get();
+        $vehicle = Vehicle::where('id', $request->vehicleID)->first();
+        $data = [
+            'otherCosts' => $otherCosts,
+            'vehicle' => $vehicle
+        ];
+
+        $pdf = PDF::loadView('pages/otherCosts/pdf', $data)->setPaper('A4', 'landscape');
+
+        return $pdf->stream();
     }
 }

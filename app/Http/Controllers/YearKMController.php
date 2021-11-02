@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\YearKMRequest;
+use App\Models\Vehicle;
 use App\Models\YearKM;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use PDF;
 
 class YearKMController extends Controller
 {
@@ -18,7 +20,8 @@ class YearKMController extends Controller
     {
         Paginator::useBootstrap();
         $yearKMs = auth()->user()->yearKMs()->orderby('year', 'ASC')->paginate(10);
-        return view('pages.yearKM.index', compact('yearKMs'));
+        $vehicles = auth()->user()->vehicles()->get();
+        return view('pages.yearKM.index', compact(['yearKMs', 'vehicles']));
     }
 
     /**
@@ -115,5 +118,19 @@ class YearKMController extends Controller
     public function abortUnless($yearkm)
     {
         abort_unless(auth()->user()->owns($yearkm), 403);
+    }
+
+    public function createPDF(Request $request)
+    {
+        $yearKms = YearKM::where('vehicle_id', $request->vehicleID)->orderby('year', 'ASC')->get();
+        $vehicle = Vehicle::where('id', $request->vehicleID)->first();
+        $data = [
+            'yearKms' => $yearKms,
+            'vehicle' => $vehicle
+        ];
+
+        $pdf = PDF::loadView('pages/yearKM/pdf', $data)->setPaper('A4');
+
+        return $pdf->stream();
     }
 }

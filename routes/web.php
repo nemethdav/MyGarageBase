@@ -31,9 +31,6 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-//Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home')->middleware('auth');
-
-
 Route::group(['middleware' => ['auth', 'verified']], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
@@ -49,8 +46,14 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/services/gallery/{id}', [ServiceImagesController::class, 'viewServicePictures'])->name('serviceGallery');
     Route::post('/services/image/upload', [ServiceImagesController::class, 'imageUpload'])->name('serviceImageUpload');
     Route::delete('services/image/delete/{id}', [ServiceImagesController::class, 'deleteImage'])->name('deleteServiceImage');
-
     Route::resource("/otherCosts", OtherCostsController::class);
+
+    //PDF-ek
+    Route::post('/refueling/pdf', [RefuelingController::class, 'createPDF'])->name('refuelingPDF');
+    Route::post('/motorwayVignette/pdf', [MotorwayVignetteController::class, 'createPDF'])->name('motorwayVignettePDF');
+    Route::post('/yearkm/pdf', [YearKMController::class, 'createPDF'])->name('yearkmPDF');
+    Route::post('/otherCosts/pdf', [OtherCostsController::class, 'createPDF'])->name('otherCostsPDF');
+    Route::post('/services/pdf', [ServiceController::class, 'createPDF'])->name('servicesPDF');
 });
 
 //Social auth

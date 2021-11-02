@@ -29,10 +29,61 @@
 
                             <x-alert/>
 
+                            <!-- Button trigger modal -->
+                            <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-outline-info" data-toggle="modal"
+                                        data-target="#PDFexport">
+                                    <i class="material-icons">
+                                        picture_as_pdf
+                                    </i>
+                                    Adatok exportálása PDF-be
+                                </button>
+                            </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="PDFexport" tabindex="-1" aria-labelledby="PDFexportLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="PDFexportLabel">Adatok PDF-be exportálása</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+
+                                        <form action="{{ route('refuelingPDF') }}" method="POST">
+                                            @csrf
+                                            <div class="modal-body">
+                                                <div class="mdc-form-field">
+                                                    @foreach($vehicles as $vehicle)
+                                                        <div class="mdc-radio">
+                                                            <input class="mdc-radio__native-control" type="radio"
+                                                                   id="{{ $vehicle->id }}" value="{{ $vehicle->id }}"
+                                                                   name="vehicleID">
+                                                            <label
+                                                                for="{{ $vehicle->id }}">{{ $vehicle->vehicleNickName }}</label>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="submit" class="btn btn-info">Exportálás PDF-be</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
                             <table class="table table-hover">
                                 <thead class="text-warning text-center">
                                 <th width="5%">Sorszám</th>
-                                <th>Jármű beceneve</th>
+                                <th>Jármű</th>
                                 <th>Tankolás időpontja</th>
                                 <th>Km/üzemóra</th>
                                 <th>Számláló 1</th>

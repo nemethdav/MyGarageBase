@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MotorwayVignetteCreateRequest;
 use App\Models\MotorwayVignette;
+use App\Models\Vehicle;
 use DateTime;
+use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use PDF;
 
 class MotorwayVignetteController extends Controller
 {
@@ -21,7 +24,8 @@ class MotorwayVignetteController extends Controller
     {
         Paginator::useBootstrap();
         $motorwayVignettes = auth()->user()->motorwayVignettes()->paginate(10);
-        return view('pages.motorwayVignettes.index', compact('motorwayVignettes'));
+        $vehicles = auth()->user()->vehicles()->get();
+        return view('pages.motorwayVignettes.index', compact(['motorwayVignettes', 'vehicles']));
     }
 
     /**
@@ -64,7 +68,7 @@ class MotorwayVignetteController extends Controller
             'image' => $image_name
         ]);
 
-        return redirect(route('motorwayVignettes.index'))->with('message', 'Az autópályamatrica sikeresen rögzítve!');
+        return redirect(route('motorwayVignette.index'))->with('message', 'Az autópályamatrica sikeresen rögzítve!');
     }
 
     /**
@@ -78,12 +82,7 @@ class MotorwayVignetteController extends Controller
         $this->abortUnless($motorwayVignette);
 
         try {
-            $end_date = $motorwayVignette->end_date;
-            $now = date("Y-m-d H:i:s");
-            $datetime1 = new DateTime($end_date);
-            $datetime2 = new DateTime($now);
-            $interval = $datetime1->diff($datetime2);
-            $days = $interval->format('%a');
+            $days = $this->days($motorwayVignette);
             return view('pages.motorwayVignettes.show', compact(['motorwayVignette', 'days']));
         } catch (\Exception $exception) {
             return redirect()->back()->with('error', 'Hiba a hátralévő napok meghatározásakor! Hiba:' . $exception->getMessage());
@@ -152,7 +151,7 @@ class MotorwayVignetteController extends Controller
             'image' => $imageName
         ]);
 
-        return redirect(route('motorwayVignettes.index'))->with('message', 'Az autópályamatrica sikeresen frissítve!');
+        return redirect(route('motorwayVignette.index'))->with('message', 'Az autópályamatrica sikeresen frissítve!');
     }
 
     /**
@@ -180,5 +179,29 @@ class MotorwayVignetteController extends Controller
 
     public function abortUnless($motorwayVignette){
         abort_unless(auth()->user()->owns($motorwayVignette), 403);
+    }
+
+    public function days(MotorwayVignette $motorwayVignette){
+        $end_date = $motorwayVignette->end_date;
+        $now = date("Y-m-d H:i:s");
+        $datetime1 = new DateTime($end_date);
+        $datetime2 = new DateTime($now);
+        $interval = $datetime1->diff($datetime2);
+        $days = $interval->format('%a');
+        return $days;
+    }
+
+    public function createPDF(Request $request){
+        $motorwayVignettes = MotorwayVignette::where('vehicle_id' , $request->vehicleID)->get();
+        $vehicle = Vehicle::where('id', $request->vehicleID)->first();
+
+        $data = [
+            'motorwayVignettes' => $motorwayVignettes,
+            'vehicle' => $vehicle,
+        ];
+
+        $pdf = PDF::loadView('pages/motorwayVignettes/pdf', $data)->setPaper('A4', 'landscape');
+
+        return $pdf->stream();
     }
 }

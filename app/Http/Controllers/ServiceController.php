@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ServiceRequest;
 use App\Models\Service;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use PDF;
 
 class ServiceController extends Controller
 {
@@ -21,7 +23,8 @@ class ServiceController extends Controller
     {
         Paginator::useBootstrap();
         $services = auth()->user()->services()->paginate(20);
-        return view('pages.services.index', compact(['services']));
+        $vehicles = auth()->user()->vehicles()->get();
+        return view('pages.services.index', compact(['services', 'vehicles']));
     }
 
     /**
@@ -138,5 +141,19 @@ class ServiceController extends Controller
 
     public function abortUnless($service){
         abort_unless(auth()->user()->owns($service), 403);
+    }
+
+    public function createPDF(Request $request)
+    {
+        $services = Service::where('vehicle_id', $request->vehicleID)->get();
+        $vehicle = Vehicle::where('id', $request->vehicleID)->first();
+        $data = [
+            'services' => $services,
+            'vehicle' => $vehicle
+        ];
+
+        $pdf = PDF::loadView('pages/services/pdf', $data)->setPaper('A4', 'landscape');
+
+        return $pdf->stream();
     }
 }

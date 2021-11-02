@@ -178,6 +178,7 @@ return [
 //        App\Providers\TelescopeServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -233,6 +234,7 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

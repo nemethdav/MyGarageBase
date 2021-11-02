@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RefuelingCreateRequest;
 use App\Models\Refueling;
+use App\Models\Vehicle;
+use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use PDF;
 
 class RefuelingController extends Controller
 {
@@ -20,7 +23,8 @@ class RefuelingController extends Controller
     {
         Paginator::useBootstrap();
         $refuelings = auth()->user()->refuelings()->orderBy('date_time')->paginate(10);
-        return view('pages.refuelings.index', compact('refuelings'));
+        $vehicles = auth()->user()->vehicles()->get();
+        return view('pages.refuelings.index', compact(['refuelings', 'vehicles']));
     }
 
     /**
@@ -164,7 +168,22 @@ class RefuelingController extends Controller
         }
     }
 
-    public function abortUnless($refueling){
+    public function abortUnless($refueling)
+    {
         abort_unless(auth()->user()->owns($refueling), 403);
+    }
+
+    public function createPDF(Request $request)
+    {
+        $refuelings = Refueling::where('vehicle_id', $request->vehicleID)->get();
+        $vehicle = Vehicle::where('id', $request->vehicleID)->first();
+        $data = [
+            'refuelings' => $refuelings,
+            'vehicle' => $vehicle
+        ];
+
+        $pdf = PDF::loadView('pages/refuelings/pdf', $data)->setPaper('A4', 'landscape');
+
+        return $pdf->stream();
     }
 }
