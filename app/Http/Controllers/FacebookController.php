@@ -30,7 +30,7 @@ class FacebookController extends Controller
                     'facebook_id' => $user->getId()
                 ]);
                 Auth::login($finduser);
-                return redirect()->intended(route('vehicle.index'));
+                return redirect()->intended(route('home'));
             }else{
                 $newUser = User::create([
                     'name' => $user->getName(),
@@ -39,7 +39,7 @@ class FacebookController extends Controller
                     'password' => Hash::make($user->getName().'@'.$user->getId())
                 ]);
                 Auth::login($newUser);
-                return redirect()->intended(route('vehicle.index'));
+                return redirect()->intended(route('home'));
             }
 
         } catch (Exception $e) {
