@@ -3,13 +3,13 @@
 @section('content')
     <div class="content">
         <div class="container-fluid">
-            <div class="breakpoints">
-                <div class="d-block d-sm-none">XS</div> <!--d-block: display block; d-none: display-none; melyiknél jelenjen meg és melyiknél nem, a kicsi felől a nagy felé-->
-                <div class="d-none d-sm-block d-md-none">SM</div>
-                <div class="d-none d-md-block d-lg-none">MD</div>
-                <div class="d-none d-lg-block d-xl-none">LG</div>
-                <div class="d-none d-xl-block">XL</div>
-            </div>
+{{--            <div class="breakpoints">--}}
+{{--                <div class="d-block d-sm-none">XS</div> <!--d-block: display block; d-none: display-none; melyiknél jelenjen meg és melyiknél nem, a kicsi felől a nagy felé-->--}}
+{{--                <div class="d-none d-sm-block d-md-none">SM</div>--}}
+{{--                <div class="d-none d-md-block d-lg-none">MD</div>--}}
+{{--                <div class="d-none d-lg-block d-xl-none">LG</div>--}}
+{{--                <div class="d-none d-xl-block">XL</div>--}}
+{{--            </div>--}}
             <div class="row">
 
                 <div class="col-xl-4 col-md-6 col-sm-12">
