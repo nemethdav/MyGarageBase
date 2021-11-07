@@ -57,7 +57,7 @@
                         <li class="nav-item{{ $activePage == 'myVehicles' ? ' active' : '' }}">
                             <a class="nav-link" href="{{ route('vehicle.index') }}">
                                 <i class="material-icons">directions_car</i>
-                                <span class="sidebar-normal">{{ __('Jámrűveim') }} </span>
+                                <span class="sidebar-normal">{{ __('Járműveim') }} </span>
                             </a>
                         </li>
                     </ul>
